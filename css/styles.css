@@ -1,0 +1,77 @@
+/* CSS PARA EL MENU*/
+.menu, .menu .dropdown-menu{
+    background-color: #4db6ac; 
+}
+.menu{
+    box-shadow: 0px 10px 6px -4px #98C9A3;
+}
+.menu .dropdown-menu{
+    font-size: .7em;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+}
+li {
+    margin-right: 10px;
+    float: left;
+}
+li.menu_li a {
+    font-size: 1.7em;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    text-decoration: none;
+}
+li.menu_li a:hover {
+    background: #4db6ac;
+    color:#F4EF88;
+}
+body{
+    background-color: #EDEEC9;
+}
+.cuerpo{
+    background-color: #FEFFF9;
+}
+.table{
+    width: 80%;
+    margin: 3% 10%;
+}
+/*PEQUEÑA BARRA QUE APARECE DEBAJO DE CADA LISTA DEL MENU, PARA INDICARNOS DONDE ESTAMOS*/
+.subdiv{
+    height: 2px;
+    background-color: #fdb61c;
+}
+/* Contenedor del cuerpo de la pagina*/
+.contenedor{
+    width: 95%;
+}
+#tabla_clientes_wrapper .row:first-child,#tabla_clientes_wrapper .row:last-child  {
+    margin:2% 10% 0%;
+}
+/* Div que contiene el login*/
+.form-login{
+    width: 30%;
+    margin-left: 35%;
+}
+.login_tittle{
+    font-size: 2.3em;
+    color:white;
+    text-align: center;
+}
+.form-login label{
+    font-size: 1.5em;
+}
+.form-login input[type="submit"]{
+    font-size: 1.5em;
+    width: 100%;
+}
+
+/* .table td span{
+    font-weight: bold;
+   
+}
+.table td{
+    text-align: center;
+} */
