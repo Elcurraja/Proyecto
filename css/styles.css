@@ -1,6 +1,6 @@
 /* CSS PARA EL MENU*/
 .menu, .menu .dropdown-menu{
-    background-color: #4db6ac; 
+    background-color: #F44336; 
 }
 .menu{
     box-shadow: 0px 10px 6px -4px #98C9A3;
@@ -19,24 +19,30 @@ li {
 li.menu_li a {
     font-size: 1.7em;
     display: block;
-    color: white;
+    color: #ffebef;
     text-align: center;
     padding: 10px;
     text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
 }
 li.menu_li a:hover {
-    background: #4db6ac;
-    color:#F4EF88;
+    
+    color:#D50000;
 }
 body{
-    background-color: #EDEEC9;
+    background-color: rgb(255, 255, 255);
 }
-.cuerpo{
-    background-color: #FEFFF9;
+/* .cuerpo{
+    background-color: rgb(255, 255, 255);
+} */
+.cuerpo>button{
+    margin-top:3%;
+    margin-left: 7%;
 }
 .table{
-    width: 80%;
-    margin: 3% 10%;
+    width: 85%;
+    margin: 3% 7%;
 }
 /*PEQUEÑA BARRA QUE APARECE DEBAJO DE CADA LISTA DEL MENU, PARA INDICARNOS DONDE ESTAMOS*/
 .subdiv{
@@ -47,8 +53,11 @@ body{
 .contenedor{
     width: 95%;
 }
-#tabla_clientes_wrapper .row:first-child,#tabla_clientes_wrapper .row:last-child  {
-    margin:2% 10% 0%;
+/* [id$="_wrapper"] .row:first-child{
+    margin:2% 7% 0%;
+} */
+#table_employee_wrapper .row:first-child,#table_employee_wrapper .row:last-child  {
+    margin:2% 7% 0%;
 }
 /* Div que contiene el login*/
 .form-login{

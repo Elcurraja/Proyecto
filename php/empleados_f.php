@@ -3,24 +3,24 @@ include("mysqlConexion.php");
 
 if(isset($_POST['op'])){
     switch($_POST['op']){
-        case 'getClientes':
-            getClients();
+        case 'getEmployee':
+            get_Employee();
             break;
-        case 'insertClient':
+        case 'getEmployee':
             insert_Client();
             break;
-        case 'editClient':
+        case 'getEmployee':
             edit_client();
             break;
-        case 'deleteCliente': 
+        case 'getEmployee': 
             delete_Client();
             break;
     }
 }
-function getClients(){
+function get_Employee(){
 
     $conn=mysql_proyecto();
-    $query= "SELECT * from clientes";
+    $query= "SELECT * from empleados";
     $response = array();
 
     $resultQuery =$conn->query($query);
@@ -29,18 +29,23 @@ function getClients(){
         $response['mensaje'] = "Error en la consulta: " + $conexion->error;
     } else {
         $response['error'] = 0;
-        $response['datosCliente'] = array();
+        $response['datosEmployee'] = array();
         while ($fila = $resultQuery->fetch_assoc()){
             $datos = array(
                 'id' => $fila['id'],
-                'denominacion' => $fila['denominacionSocial'],
                 'nombre' => $fila['nombre'],
                 'apellidos' => $fila['apellidos'],
-                'direccion' => $fila['direccion'],
+                'dni' => $fila['dni'],
+                'fecha_nacimiento' => $fila['fecha_nacimiento'],
+                'fecha_contratacion' => $fila['fecha_contratacion'],
+                'fecha_fin_contrato' => $fila['fecha_fin_contrato'],
+                'puesto' => $fila['puesto'],
                 'telefono' => $fila['telefono'],
+                'direccion' => $fila['direccion'],
+                'numero' => $fila['numero'],
                 'poblacion' => $fila['poblacion']
             );
-            array_push($response['datosCliente'], $datos);
+            array_push($response['datosEmployee'], $datos);
         }
     }
     echo json_encode($response);

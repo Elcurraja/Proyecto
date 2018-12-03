@@ -1,6 +1,6 @@
 $(document).ready(function() {
     //Llamamos al a funcion get_client() para cargar la tabla con todos los registros
-    get_client()
+    get_employee()
 
     // $('button#addClient').on("click",function(){
     //     console.log("holi")
@@ -48,27 +48,32 @@ $(document).ready(function() {
     
 })
 
-function get_client(){
+function get_employee(){
     $.ajax({
-        url:"php/clientes_f.php",
+        url:"php/empleados_f.php",
         type:"POST",
         dataType: "json",
         data:{
-            "op":"getClientes"
+            "op":"getEmployee"
         },
         success:function(response){
             // console.log(response.datosCliente)
-            $("#tabla_clientes tbody").empty();
-                for (let index = 0; index < response.datosCliente.length; index++){
-                    $("#tabla_clientes tbody").append(
+            $("#table_employee tbody").empty();
+                for (let index = 0; index < response.datosEmployee.length; index++){
+                    $("#table_employee tbody").append(
                         "<tr class='fila'>"+
-                        "<td><span>"+ response.datosCliente[index].id +"</span></td>"+
-                        "<td><span>"+ response.datosCliente[index].denominacion +"</span></td>"+
-                        "<td><span>"+ response.datosCliente[index].nombre +"</span></td>"+
-                        "<td><span>"+ response.datosCliente[index].apellidos +"</span></td>"+
-                        "<td><span>"+ response.datosCliente[index].direccion +"</span></td>"+
-                        "<td><span>"+ response.datosCliente[index].telefono +"</span></td>"+
-                        "<td><span>"+ response.datosCliente[index].poblacion +"</span></td>"+
+                        "<input type='hidden' class='form-control' name='idEmployee' id='idEmployee' value='"+ response.datosEmployee[index].id +"'>"+
+                        "<td><span>"+ response.datosEmployee[index].nombre +"</span></td>"+
+                        "<td><span>"+ response.datosEmployee[index].apellidos +"</span></td>"+
+                        "<td><span>"+ response.datosEmployee[index].dni +"</span></td>"+
+                        "<td><span>"+ response.datosEmployee[index].fecha_nacimiento +"</span></td>"+
+                        "<td><span>"+ response.datosEmployee[index].fecha_contratacion +"</span></td>"+
+                        "<td><span>"+ response.datosEmployee[index].fecha_fin_contrato +"</span></td>"+
+                        "<td><span>"+ response.datosEmployee[index].puesto +"</span></td>"+
+                        "<td><span>"+ response.datosEmployee[index].telefono +"</span></td>"+
+                        "<td><span>"+ response.datosEmployee[index].direccion +"</span></td>"+
+                        "<td><span>"+ response.datosEmployee[index].numero +"</span></td>"+
+                        "<td><span>"+ response.datosEmployee[index].poblacion +"</span></td>"+
                         "<td><button class='btn btn-primary' id='edit'>Editar</button><button class='btn btn-primary' type='submit' id='delete'>Borrar</button></td>");
                 }
         },
@@ -80,7 +85,7 @@ function get_client(){
            DEFECTO POR LA PRIMERA COLUMNA (SOLO CONTIENE CHECKBOXES) SINO LA TERCERA (APELLIDOS), CABECERA FIJA
            CON OFFSET A LA ANCHURA DEL MENU (PARA QUE NO SE OCULTE POR DEBAJO), LENGUAJE EN CASTELLANO, Y
            QUE NO HAGA ORDENABLE LA PRIMERA COLUMNA NI USE SU CONTENIDO EN LAS BUSQUEDAS DE LA DATATABLE */
-        tabla = $('#tabla_clientes').DataTable({
+        tabla = $('#table_employee').DataTable({
             // https://datatables.net/reference/option/order
             order: [[0, "asc"]],
             language: {
