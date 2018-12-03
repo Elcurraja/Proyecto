@@ -28,7 +28,7 @@ li.menu_li a {
 }
 li.menu_li a:hover {
     
-    color:#D50000;
+    color:#00b8d1;
 }
 body{
     background-color: rgb(255, 255, 255);
@@ -46,8 +46,8 @@ body{
 }
 /*PEQUEÑA BARRA QUE APARECE DEBAJO DE CADA LISTA DEL MENU, PARA INDICARNOS DONDE ESTAMOS*/
 .subdiv{
-    height: 2px;
-    background-color: #fdb61c;
+    height: 3.5px;
+    background-color: #00d2e9;
 }
 /* Contenedor del cuerpo de la pagina*/
 .contenedor{

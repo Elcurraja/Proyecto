@@ -29,17 +29,17 @@
                 </li>
                 <li class="menu_li nav-item">
                     <a class="nav-link" href="#">Pedidos</a>
-                    <div id="divlow2"></div>
+                    <div id="divlow3"></div>
                 </li>
                 <li class="menu_li nav-item">
                     <a class="nav-link" href="#">Historico Almacen</a>
-                    <div id="divlow2"></div>
+                    <div id="divlow4"></div>
                 </li>
                 <li class="menu_li nav-item dropdown ">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Administracion
                     </a>
-                    <div id="divlow4"></div>
+                    <div id="divlow5"></div>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="./empleados.php">Empleados</a>
                         <a class="dropdown-item" href="#">Proveedores</a>
@@ -48,9 +48,32 @@
                 </li>
                 <li class="menu_li nav-item">
                     <a class="nav-link"  href="#" onclick="cerrar_sesion()">Logout</a>
-                    <div id="divlow2"></div>
+                    <div id="divlow6"></div>
                 </li>
             </ul>
         </div>
     </nav>
 </div>
+<script>
+    //SCRIPT PARA AÑADIR UNA CLASE A UN DIV EN EL MENU PARA SABER DONDE ESTAMOS
+  $(document).ready(function() {
+    var url= (window.location.pathname).split("/")
+   
+    if(url[2]=='empleados.php'|| url[2]=='proveedores.php' || url[2]=='clientes.php'){
+        $("#divlow5").addClass("subdiv")
+    }
+    else if(url[2]=='historico_almacen.php'){
+        $("#divlow4").addClass("subdiv")
+    }
+    else if(url[2]=='pedidos.php'){
+        $("#divlow3").addClass("subdiv")
+    }
+    else if(url[2]=='productos.php'){
+        $("#divlow2").addClass("subdiv")
+    }
+    else{
+        $("#divlow1").addClass("subdiv")
+    }
+  })
+</script>
+ 
