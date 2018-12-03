@@ -74,7 +74,7 @@ function get_employee(){
                         "<td><span>"+ response.datosEmployee[index].direccion +"</span></td>"+
                         "<td><span>"+ response.datosEmployee[index].numero +"</span></td>"+
                         "<td><span>"+ response.datosEmployee[index].poblacion +"</span></td>"+
-                        "<td><button class='btn btn-primary' id='edit'>Editar</button><button class='btn btn-primary' type='submit' id='delete'>Borrar</button></td>");
+                        "<td><button class='btn' id='edit'><i class='fas fa-edit'></i></button><button class='btn' type='submit' id='delete'><i class='fas fa-trash'></i></button></td>");
                 }
         },
         error:function(jqXHR, textStatus, errorThrown){

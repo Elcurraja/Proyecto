@@ -69,7 +69,7 @@ function get_client(){
                         "<td><span>"+ response.datosCliente[index].direccion +"</span></td>"+
                         "<td><span>"+ response.datosCliente[index].telefono +"</span></td>"+
                         "<td><span>"+ response.datosCliente[index].poblacion +"</span></td>"+
-                        "<td><button class='btn btn-primary' id='edit'>Editar</button><button class='btn btn-primary' type='submit' id='delete'>Borrar</button></td>");
+                        "<td><button class='btn' id='edit'><i class='fas fa-edit'></i></button><button class='btn' type='submit' id='delete'><i class='fas fa-trash'></i></button></td>");
                 }
         },
         error:function(jqXHR, textStatus, errorThrown){

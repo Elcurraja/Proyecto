@@ -1,12 +1,23 @@
 /* CSS PARA EL MENU*/
-.menu, .menu .dropdown-menu{
+.menu{
     background-color: #F44336; 
 }
-.menu{
-    box-shadow: 0px 10px 6px -4px #98C9A3;
+.menu .dropdown-menu{
+    background-color: #ff7961;
 }
+/* .menu{
+    box-shadow: 0px 10px 6px -4px #f44336;
+} */
 .menu .dropdown-menu{
     font-size: .7em;
+}
+.menu .dropdown-item:hover{
+    color:black;
+    background-color:#F44336;
+}
+li.menu_li a:hover{
+    color:black;
+    background-color:#F44336;
 }
 ul {
     list-style-type: none;
@@ -19,17 +30,14 @@ li {
 li.menu_li a {
     font-size: 1.7em;
     display: block;
-    color: #ffebef;
+    color: white;
     text-align: center;
     padding: 10px;
     text-decoration: none;
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
 }
-li.menu_li a:hover {
-    
-    color:#00b8d1;
-}
+
 body{
     background-color: rgb(255, 255, 255);
 }
@@ -47,7 +55,7 @@ body{
 /*PEQUEÑA BARRA QUE APARECE DEBAJO DE CADA LISTA DEL MENU, PARA INDICARNOS DONDE ESTAMOS*/
 .subdiv{
     height: 3.5px;
-    background-color: #00d2e9;
+    background-color: rgb(121, 2, 10);
 }
 /* Contenedor del cuerpo de la pagina*/
 .contenedor{
@@ -76,7 +84,9 @@ body{
     font-size: 1.5em;
     width: 100%;
 }
-
+#modalEditCliente span{
+font-weight: bold;
+}
 /* .table td span{
     font-weight: bold;
    
