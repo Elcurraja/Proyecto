@@ -42,7 +42,7 @@
                     <div id="divlow5"></div>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="./empleados.php">Empleados</a>
-                        <a class="dropdown-item" href="#">Proveedores</a>
+                        <a class="dropdown-item" href="./proveedores.php">Proveedores</a>
                         <a class="dropdown-item" href="./clientes.php">Clientes</a>
                     </div>
                 </li>

@@ -11,24 +11,22 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
     <script src="js/lib/jquery-3.3.1.js"></script>
-    <title>Administracion Clientes</title>
+    <title>Administracion Proveedores</title>
 </head>
 <body>
     <?php include('php/verifiLogin.php');?> 
 <div class="container-fluid contenedor">
     <div class="cuerpo">
-    <button type="button" class="btn btn-primary" id="addClient">Añadir Nuevo Cliente</button>
+    <button type="button" class="btn btn-primary" id="addProvider">Añadir Nuevo Proveedor</button>
         <div class="table-responsive">
-            <table class="table table-striped table-bordered" id="tabla_clientes"> 
+            <table class="table table-striped table-bordered" id="table_provider"> 
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Denominacion</th>
                         <th scope="col">Nombre</th>
-                        <th scope="col">Apellidos</th>
                         <th scope="col">Direccion</th>
                         <th scope="col">Telefono</th>
-                        <th scope="col">Poblacion</th>
                         <th scope="col">Opciones</th>
                     </tr>
                 </thead>
@@ -41,16 +39,16 @@
 </div>
 
 <!-- Modal que cargamos para editar los registros -->
-<div class="modal fade" id="modalEditCliente" tabindex="-1" role="dialog" aria-labelledby="modalEditClienteLabel" aria-hidden="true">
+<div class="modal fade" id="modalProvider" tabindex="-1" role="dialog" aria-labelledby="modalProviderLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalEditClienteLabel">Editar Cliente</h5>
+        <h5 class="modal-title" id="modalProviderLabel">Editar Proveedor</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
-        <table class="table table-bordered" id="add_manip">
-            <tbody id="modalEditCliente">
+        <table class="table table-bordered">
+            <tbody id="modalProvider">
                 <tr>
                     <td>
                         <label for="denominacion">Denominacion Social </label>
@@ -69,14 +67,6 @@
                 </tr>
                 <tr>
                     <td>
-                        <label for="apellido">Apellidos </label>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control" name="apellido" id="apellido"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
                         <label for="direccion">Direccion </label>
                     </td>
                     <td>
@@ -91,23 +81,15 @@
                         <input type="text" class="form-control" name="telefono" id="telefono"/>
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <label for="poblacion">Poblacion </label>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control" name="poblacion" id="poblacion"/>
-                    </td>
-                </tr>
-                <input type="hidden" class="form-control" name="idCliente" id="idCliente"/>
+                <input type="hidden" class="form-control" name="idProvider" id="idProvider"/>
                 <input type="hidden" class="form-control" name="op" id="op"/>  
             </tbody>
         </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" onclick ="insert_client()" id="add">Añadir Nuevo Cliente</button>
-        <button type="button" class="btn btn-primary" onclick ="edit_client()" id="edit" style="display:none">Editar Cliente</button>
+        <button type="button" class="btn btn-primary" onclick ="insert_provider()" id="add">Añadir Nuevo Proveedor</button>
+        <button type="button" class="btn btn-primary" onclick ="edit_provider()" id="edit" style="display:none">Editar Proveedor</button>
       </div>
     </div>
   </div>
@@ -132,7 +114,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-danger" id="borrar_btn" onclick ="delete_client();">Borrar</button>
+          <button type="button" class="btn btn-danger" id="borrar_btn" onclick ="delete_provider();">Borrar</button>
         </div>
       </div>
     </div>
@@ -140,6 +122,6 @@
 
 <script src="js/lib/bootstrap.min.js"></script>
 <script src="js/lib/datatables.min.js"></script>  
-<script src='js/clientes.js'></script>
+<script src='js/proveedor.js'></script>
 </body>
 </html>
