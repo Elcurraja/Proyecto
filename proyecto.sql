@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost
+ Source Server         : local mysql
  Source Server Type    : MySQL
- Source Server Version : 100136
+ Source Server Version : 100135
  Source Host           : localhost:3306
  Source Schema         : proyecto
 
  Target Server Type    : MySQL
- Target Server Version : 100136
+ Target Server Version : 100135
  File Encoding         : 65001
 
- Date: 03/12/2018 02:10:47
+ Date: 05/12/2018 17:12:45
 */
 
 SET NAMES utf8mb4;
@@ -30,21 +30,22 @@ CREATE TABLE `clientes`  (
   `telefono` int(9) NULL DEFAULT NULL,
   `poblacion` varchar(255) CHARACTER SET utf8 COLLATE utf8_spanish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_spanish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_spanish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of clientes
 -- ----------------------------
-INSERT INTO `clientes` VALUES (1, 'Energy', 'Julio', 'Gómez', 'Alameda,12', 959963652, 'Huelva');
+INSERT INTO `clientes` VALUES (1, 'Energy', 'Julio', 'Gómez', 'Calle Alameda,12', 959963652, 'Huelva');
 INSERT INTO `clientes` VALUES (2, 'El Marinero', 'Andrés', 'Martín', 'Avenida del oceano,10', 959874512, 'Huelva');
 INSERT INTO `clientes` VALUES (3, 'Come y Calla', 'Paco', 'Gutierrez', 'Torre,4', 959745232, 'Huelva');
 INSERT INTO `clientes` VALUES (4, 'Ledin', 'Marta', 'Palma', 'Virgen clara,2', 959632541, 'Punta umbria');
-INSERT INTO `clientes` VALUES (5, 'Al Natural', 'Juan', 'Díaz', 'Calle uno', 959632145, 'Huelva');
+INSERT INTO `clientes` VALUES (5, 'Al Natural', 'Juanito', 'Díaz Benito', 'Calle uno', 959632145, 'Huelva');
 INSERT INTO `clientes` VALUES (6, 'El Rancho Asador Argentino', 'Abél', 'García', 'Calle dos', 959748585, 'Huelva');
 INSERT INTO `clientes` VALUES (7, 'El ingenio de Cervantes', 'Maria', 'Álvarez', 'Calle tres', 959632145, 'Huelva');
 INSERT INTO `clientes` VALUES (8, 'Korgui', 'Nuria', 'Ruíz', 'Calle cuatro', 959663333, 'Huelva');
 INSERT INTO `clientes` VALUES (9, 'Compostela Marisqueria', 'Adrián', 'Blanco', 'Calle cinco', 959748888, 'Huelva');
 INSERT INTO `clientes` VALUES (10, 'Café de Oriente', 'Adriana', 'Navarro', 'Calle Seis', 959112233, 'Huelva');
+INSERT INTO `clientes` VALUES (11, 'Prueba', 'Prueba2', 'Pruebita', 'Calle Prueba', 959654125, 'Moguer');
 
 -- ----------------------------
 -- Table structure for empleados
@@ -64,13 +65,12 @@ CREATE TABLE `empleados`  (
   `numero` varchar(4) CHARACTER SET utf8 COLLATE utf8_spanish_ci NULL DEFAULT NULL,
   `poblacion` varchar(255) CHARACTER SET utf8 COLLATE utf8_spanish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_spanish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_spanish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of empleados
 -- ----------------------------
 INSERT INTO `empleados` VALUES (1, 'Julio', 'Gómez Palma', '48945574X', '1992-06-20', '2018-10-03', '2019-10-03', 'ceo', 625617932, 'Almendro', '15', 'San Bartolome');
-INSERT INTO `empleados` VALUES (2, 'Antonio', 'Peña Garrido', '96321458A', '1990-08-14', '2018-08-08', '2019-06-12', 'repartidor', 666778899, 'Arboleda', '1A', 'San juan');
 INSERT INTO `empleados` VALUES (3, 'Maria', 'Díaz Romero', '74125896B', '1993-12-12', '2018-10-19', '2018-12-22', 'administrativa', 951753654, 'Camilo', '39', 'Punta umbria');
 INSERT INTO `empleados` VALUES (4, 'Nuria', 'Calvo Prieto', '41526398K', '1985-06-28', '2018-11-28', '2018-12-28', 'administrativa', 654321452, 'Corta', '21', 'Huelva');
 INSERT INTO `empleados` VALUES (5, 'Roberta', 'Ortega Lara', '87451296I', '1996-01-08', '2018-11-28', '2018-12-28', 'repartidor', 632541789, 'Cartaya', '4C', 'Huelva');
@@ -228,19 +228,19 @@ INSERT INTO `productos` VALUES (22, '7up', 'Botellin', 50, NULL, NULL);
 DROP TABLE IF EXISTS `proveedores`;
 CREATE TABLE `proveedores`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `denominacion social` varchar(55) CHARACTER SET utf8 COLLATE utf8_spanish_ci NULL DEFAULT NULL,
+  `denominacion_social` varchar(55) CHARACTER SET utf8 COLLATE utf8_spanish_ci NULL DEFAULT NULL,
   `nombre` varchar(55) CHARACTER SET utf8 COLLATE utf8_spanish_ci NULL DEFAULT NULL,
   `direccion` varchar(55) CHARACTER SET utf8 COLLATE utf8_spanish_ci NULL DEFAULT NULL,
   `telefono` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_spanish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_spanish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of proveedores
 -- ----------------------------
 INSERT INTO `proveedores` VALUES (1, 'Nestle', 'Nestle', 'aaaaaa 14', 625458796);
 INSERT INTO `proveedores` VALUES (2, 'Saimaza', 'Saimaza', 'aasdasd12', 959639636);
-INSERT INTO `proveedores` VALUES (3, 'Nescafe', 'Nescafe', 'porewrwr 1', 959634174);
+INSERT INTO `proveedores` VALUES (3, 'Nescafe', 'Nescafe', 'Albani', 959634174);
 
 -- ----------------------------
 -- Table structure for usuarios
