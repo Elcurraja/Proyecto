@@ -6,14 +6,14 @@ if(isset($_POST['op'])){
         case 'getEmployee':
             get_Employee();
             break;
-        case 'getEmployee':
-            insert_Client();
+        case 'insertEmployee':
+            insert_Employee();
             break;
-        case 'getEmployee':
-            edit_client();
+        case 'editEmployee':
+            edit_Employee();
             break;
-        case 'getEmployee': 
-            delete_Client();
+        case 'deleteEmployee': 
+            delete_Employee();
             break;
     }
 }
@@ -51,19 +51,24 @@ function get_Employee(){
     echo json_encode($response);
     $conn->close();
 }
-function insert_Client(){
+function insert_Employee(){
     $conn=mysql_proyecto();
     $conn->begin_transaction();
-    $idCliente = $_POST['idCliente'];
-    $denominacion = $_POST['denominacion'];
+    $idEmployee = $_POST['idEmployee'];
     $nombre = $_POST['nombre'];
     $apellidos = $_POST['apellidos'];
-    $direccion = $_POST['direccion'];
+    $dni = $_POST['dni'];
+    $fecha_nacimiento = $_POST['fecha_nacimiento'];
+    $fecha_contratacion = $_POST['inicio_contrato'];
+    $fecha_fin_contrato = $_POST['fin_contrato'];
+    $puesto = $_POST['puesto'];
     $telefono = $_POST['telefono'];
+    $direccion = $_POST['direccion'];
+    $numero = $_POST['numero'];
     $poblacion = $_POST['poblacion'];
     try {
-        $query = "  INSERT INTO clientes (denominacionSocial,nombre,apellidos,direccion,telefono,poblacion)
-                    VALUES('$denominacion','$nombre','$apellidos','$direccion',$telefono,'$poblacion')";
+        $query = "  INSERT INTO empleados (nombre,apellidos,dni,fecha_nacimiento,fecha_contratacion,fecha_fin_contrato,puesto,telefono,direccion,numero,poblacion)
+                    VALUES('$nombre','$apellidos','$dni','$fecha_nacimiento','$fecha_contratacion','$fecha_fin_contrato','$puesto','$telefono','$direccion','$numero','$poblacion')";
                     echo $query;
         $resultQuery = $conn->query($query);
         if (!$resultQuery) {
@@ -83,20 +88,26 @@ function insert_Client(){
     header('Content-type: application/json; charset=utf-8');
     echo json_encode($response);
 }
-function edit_client(){
+function edit_Employee(){
     $conn=mysql_proyecto();
     $conn->begin_transaction();
-    $idCliente = $_POST['idCliente'];
-    $denominacion = $_POST['denominacion'];
+    $idEmployee = $_POST['idEmployee'];
     $nombre = $_POST['nombre'];
     $apellidos = $_POST['apellidos'];
-    $direccion = $_POST['direccion'];
+    $dni = $_POST['dni'];
+    $fecha_nacimiento = $_POST['fecha_nacimiento'];
+    $fecha_contratacion = $_POST['inicio_contrato'];
+    $fecha_fin_contrato = $_POST['fin_contrato'];
+    $puesto = $_POST['puesto'];
     $telefono = $_POST['telefono'];
+    $direccion = $_POST['direccion'];
+    $numero = $_POST['numero'];
     $poblacion = $_POST['poblacion'];
     try {
-        $query = "  UPDATE clientes 
-                    SET denominacionSocial='$denominacion',nombre='$nombre',apellidos='$apellidos',direccion='$direccion',telefono='$telefono',poblacion='$poblacion' 
-                    WHERE id=$idCliente";
+        $query = "  UPDATE empleados 
+                    SET nombre='$nombre',apellidos='$apellidos',dni='$dni',fecha_nacimiento='$fecha_nacimiento',fecha_contratacion='$fecha_contratacion',
+                        fecha_fin_contrato='$fecha_fin_contrato',puesto='$puesto',telefono='$telefono',direccion='$direccion',numero='$numero',poblacion='$poblacion' 
+                    WHERE id=$idEmployee";
         $resultQuery = $conn->query($query);
         if (!$resultQuery) {
             throw new Exception($conn->error);
@@ -116,12 +127,12 @@ function edit_client(){
     header('Content-type: application/json; charset=utf-8');
     echo json_encode($response);
 }
-function delete_client(){
+function delete_Employee(){
     $conn=mysql_proyecto();
     $conn->begin_transaction();
-    $idCliente = $_POST['idCliente'];
+    $idEmployee = $_POST['idEmployee'];
     try {
-        $query= "DELETE FROM clientes where id=$idCliente";
+        $query= "DELETE FROM empleados where id=$idEmployee";
         $resultQuery = $conn->query($query);
         if (!$resultQuery) {
             throw new Exception($conn->error);
@@ -141,34 +152,4 @@ function delete_client(){
     header('Content-type: application/json; charset=utf-8');
     echo json_encode($response);
 }
-// function editarNaves(){
-//     $conn=mysql_manipuladores();
-//     $conn->begin_transaction();
-//     foreach($_POST['datos'] as $fila){
-//         $id=$fila['idnave'];
-//         $designacion= $fila['designacion'];
-//         $sql= "UPDATE naves SET designacion='$designacion' where idnave=$id";
-//         $resultQuery = $conn->query($sql);
-//         $conn->commit();
-//     }
-// }
-// function borrarNaves(){
-//     $conn=mysql_manipuladores();
-//     $conn->begin_transaction();
-//     foreach($_POST['datos'] as $fila){
-//         $id=$fila['idnave'];
-//         $sql= "DELETE FROM naves where idnave=$id";
-//         $resultQuery = $conn->query($sql);
-//         $conn->commit();
-//     }
-// }
-// function addNave(){
-//     $conn=mysql_manipuladores();
-//     $conn->begin_transaction();
-//     $designacion=$_POST['designacion'];
-//     $sql="INSERT INTO naves (designacion) 
-//             VALUES ('$designacion')";
-//     $resultQuery = $conn->query($sql);
-//     $conn->commit();
-// }
 ?>

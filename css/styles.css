@@ -55,7 +55,7 @@ body{
 /*PEQUEÑA BARRA QUE APARECE DEBAJO DE CADA LISTA DEL MENU, PARA INDICARNOS DONDE ESTAMOS*/
 .subdiv{
     height: 3.5px;
-    background-color: rgb(121, 2, 10);
+    background-color:#8bb9d8;
 }
 /* Contenedor del cuerpo de la pagina*/
 .contenedor{

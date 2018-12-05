@@ -61,14 +61,6 @@
             <tbody id="modalEmployee">
                 <tr>
                     <td>
-                        <label for="denominacion">Denominacion Social </label>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control" name="denominacion" id="denominacion"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
                         <label for="nombre">Nombre </label>
                     </td>
                     <td>
@@ -77,18 +69,50 @@
                 </tr>
                 <tr>
                     <td>
-                        <label for="apellido">Apellidos </label>
+                        <label for="apellidos">Apellidos </label>
                     </td>
                     <td>
-                        <input type="text" class="form-control" name="apellido" id="apellido"/>
+                        <input type="text" class="form-control" name="apellidos" id="apellidos"/>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label for="direccion">Direccion </label>
+                        <label for="dni">DNI </label>
                     </td>
                     <td>
-                        <input type="text" class="form-control" name="direccion" id="direccion"/>
+                        <input type="text" class="form-control" name="dni" id="dni"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="fecha_nacimiento">Fecha Nacimiento </label>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="inicio_contrato">Inicio Contrato </label>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="inicio_contrato" id="inicio_contrato"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="fin_contrato">Fin Contrato </label>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="fin_contrato" id="fin_contrato"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="puesto">Puesto </label>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="puesto" id="puesto"/>
                     </td>
                 </tr>
                 <tr>
@@ -101,21 +125,37 @@
                 </tr>
                 <tr>
                     <td>
+                        <label for="direccion">Direccion </label>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="direccion" id="direccion"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="numero">numero </label>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="numero" id="numero"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         <label for="poblacion">Poblacion </label>
                     </td>
                     <td>
                         <input type="text" class="form-control" name="poblacion" id="poblacion"/>
                     </td>
                 </tr>
-                <input type="hidden" class="form-control" name="idCliente" id="idCliente"/>
+                <input type="hidden" class="form-control" name="idEmployee" id="idEmployee"/>
                 <input type="hidden" class="form-control" name="op" id="op"/>  
             </tbody>
         </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" onclick ="insert_employee()" id="add">Añadir Nuevo Cliente</button>
-        <button type="button" class="btn btn-primary" onclick ="edit_employee()" id="edit" style="display:none">Editar Cliente</button>
+        <button type="button" class="btn btn-primary" onclick ="insert_employee()" id="add">Añadir Nuevo Empleado</button>
+        <button type="button" class="btn btn-primary" onclick ="edit_employee()" id="edit" style="display:none">Editar Empleado</button>
       </div>
     </div>
   </div>
@@ -140,7 +180,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-danger" id="borrar_btn" onclick ="delete_client();">Borrar</button>
+          <button type="button" class="btn btn-danger" id="borrar_btn" onclick ="delete_employee();">Borrar</button>
         </div>
       </div>
     </div>

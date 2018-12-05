@@ -20,13 +20,13 @@ $(document).ready(function() {
        //Si el ID del boton es edit
         if($(this).attr('id')=='edit'){
             //Asignamos los valores del modal con los datos de la fila correspondiente de la tabla
-            $("#modalEditCliente #idCliente").val(fila.find('td:nth-child(1) > span').text())
-            $("#modalEditCliente #denominacion").val(fila.find('td:nth-child(2) > span').text())
-            $("#modalEditCliente #nombre").val(fila.find('td:nth-child(3) > span').text())
-            $("#modalEditCliente #apellido").val(fila.find('td:nth-child(4) > span').text())
-            $("#modalEditCliente #direccion").val(fila.find('td:nth-child(5) > span').text())
-            $("#modalEditCliente #telefono").val(fila.find('td:nth-child(6) > span').text())
-            $("#modalEditCliente #poblacion").val(fila.find('td:nth-child(7) > span').text())
+            $("#modalEditCliente #idCliente").val(data.id)
+            $("#modalEditCliente #denominacion").val(data.denominacion)
+            $("#modalEditCliente #nombre").val(data.nombre)
+            $("#modalEditCliente #apellido").val(data.apellidos)
+            $("#modalEditCliente #direccion").val(data.direccion)
+            $("#modalEditCliente #telefono").val(data.telefono)
+            $("#modalEditCliente #poblacion").val(data.poblacion)
             $("button#edit").css("display","block")
             $("button#add").css("display","none")
             $('#modalEditCliente').modal('show')

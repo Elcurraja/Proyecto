@@ -8,41 +8,52 @@ $(document).ready(function() {
     //Recogemos el evento click de los botones, insertar, editar y borrar
     $(document).on ("click", "button", function () {
         var fila = $(this).closest('tr')
+   
         let  data = {
-            'id':fila.find('td:nth-child(1) > span').text(),
-            'denominacion':fila.find('td:nth-child(2) > span').text(),
-            'nombre':fila.find('td:nth-child(3) > span').text(),
-            'apellidos':fila.find('td:nth-child(4) > span').text(),
-            'direccion':fila.find('td:nth-child(5) > span').text(),
-            'telefono':fila.find('td:nth-child(6) > span').text(),
-            'poblacion':fila.find('td:nth-child(7) > span').text(),
+            'id':fila.find('> input').val(),
+            'nombre':fila.find('td:nth-child(2) > span').text(),
+            'apellidos':fila.find('td:nth-child(3) > span').text(),
+            'dni':fila.find('td:nth-child(4) > span').text(),
+            'fecha_nacimiento':fila.find('td:nth-child(5) > span').text(),
+            'inicio_contrato':fila.find('td:nth-child(6) > span').text(),
+            'fin_contrato':fila.find('td:nth-child(7) > span').text(),
+            'puesto':fila.find('td:nth-child(8) > span').text(),
+            'telefono':fila.find('td:nth-child(9) > span').text(),
+            'direccion':fila.find('td:nth-child(10) > span').text(),
+            'numero':fila.find('td:nth-child(11) > span').text(),
+            'poblacion':fila.find('td:nth-child(12) > span').text(),
         }
        //Si el ID del boton es edit
         if($(this).attr('id')=='edit'){
             //Asignamos los valores del modal con los datos de la fila correspondiente de la tabla
-            $("#modalEditCliente #idCliente").val(fila.find('td:nth-child(1) > span').text())
-            $("#modalEditCliente #denominacion").val(fila.find('td:nth-child(2) > span').text())
-            $("#modalEditCliente #nombre").val(fila.find('td:nth-child(3) > span').text())
-            $("#modalEditCliente #apellido").val(fila.find('td:nth-child(4) > span').text())
-            $("#modalEditCliente #direccion").val(fila.find('td:nth-child(5) > span').text())
-            $("#modalEditCliente #telefono").val(fila.find('td:nth-child(6) > span').text())
-            $("#modalEditCliente #poblacion").val(fila.find('td:nth-child(7) > span').text())
+            $("#modalEmployee #idEmployee").val(data.id)
+            $("#modalEmployee #nombre").val(data.nombre)
+            $("#modalEmployee #apellidos").val(data.apellidos)
+            $("#modalEmployee #dni").val(data.dni)
+            $("#modalEmployee #fecha_nacimiento").val(data.fecha_nacimiento)
+            $("#modalEmployee #inicio_contrato").val(data.inicio_contrato)
+            $("#modalEmployee #fin_contrato").val(data.fin_contrato)
+            $("#modalEmployee #puesto").val(data.puesto)
+            $("#modalEmployee #telefono").val(data.telefono)
+            $("#modalEmployee #direccion").val(data.direccion)
+            $("#modalEmployee #numero").val(data.numero)
+            $("#modalEmployee #poblacion").val(data.poblacion)
+            //Ocultamos el voton de insertar y mostramos el de editar, luego mostramos el model
             $("button#edit").css("display","block")
             $("button#add").css("display","none")
-            $('#modalEditCliente').modal('show')
+            $('#modalEmployee').modal('show')
         }
-        //Si el ID del boton es delete
+        //Si el ID del boton es delete, mostramos un mensaje de confirmacion  de borrado para el empleado data.id
         else if($(this).attr('id')=='delete'){
-            $('#cuerpo_mensaje').html(  "<span>Cliente: " + data.denominacion + "</span></br>" + 
-                                        "<span>Nombre: "+ data.nombre + " " + data.apellidos + "</span>"+
-                                        "<input type='hidden' class='form-control' name='idClienteD' id='idClienteD' value='"+ data.id +"'>")
+            $('#cuerpo_mensaje').html(  "<span>Nombre: "+ data.nombre + " " + data.apellidos + "</span>"+
+                                        "<input type='hidden' class='form-control' name='idEmployeeD' id='idEmployeeD' value='"+ data.id +"'>")
             $('#modal_confirm_borrar').modal('show')
         }
-        //Si el ID del boton es añadir
-        else if($(this).attr('id')=='addClient'){
+        //Si el ID del boton es añadir ocultamos el boton de editar en el modal y mostramos el de insertar
+        else if($(this).attr('id')=='addEmploye'){
             $("button#edit").css("display","none")
             $("button#add").css("display","block")
-            $('#modalEditCliente').modal('show')
+            $('#modalEmployee').modal('show')
         }
     });
     
@@ -116,20 +127,25 @@ function get_employee(){
     });
 
 }
-function insert_client(){
+function insert_employee(){
     var datos = {
-        "op": "insertClient",
-        "idCliente":$("#idCliente").val(),
-        "denominacion":$("#denominacion").val(),
+        "op": "insertEmployee",
+        "idEmployee":$("#idEmployee").val(),
         "nombre":$("#nombre").val(),
-        "apellidos":$("#apellido").val(),
-        "direccion":$("#direccion").val(),
+        "apellidos":$("#apellidos").val(),
+        "dni":$("#dni").val(),
+        "fecha_nacimiento":$("#fecha_nacimiento").val(),
+        "inicio_contrato":$("#inicio_contrato").val(),
+        "fin_contrato":$("#fin_contrato").val(),
+        "puesto":$("#puesto").val(),
         "telefono":$("#telefono").val(),
+        "direccion":$("#direccion").val(),
+        "numero":$("#numero").val(),
         "poblacion":$("#poblacion").val(),
     }
     // console.log(datos)
     $.ajax({
-        url:"php/clientes_f.php",
+        url:"php/empleados_f.php",
         type:"POST",
         data: datos,
         success: function(response){
@@ -141,23 +157,28 @@ function insert_client(){
             console.log("Error en la peticion AJAX: " + errorThrown + ", " + textStatus);
         }
     }).done(function(){
-        location.href ="clientes.php";
+        location.href ="empleados.php";
     });
 }
-function edit_client(){
+function edit_employee(){
     var datos = {
-        "op": "editClient",
-        "idCliente":$("#idCliente").val(),
-        "denominacion":$("#denominacion").val(),
+        "op": "editEmployee",
+        "idEmployee":$("#idEmployee").val(),
         "nombre":$("#nombre").val(),
-        "apellidos":$("#apellido").val(),
-        "direccion":$("#direccion").val(),
+        "apellidos":$("#apellidos").val(),
+        "dni":$("#dni").val(),
+        "fecha_nacimiento":$("#fecha_nacimiento").val(),
+        "inicio_contrato":$("#inicio_contrato").val(),
+        "fin_contrato":$("#fin_contrato").val(),
+        "puesto":$("#puesto").val(),
         "telefono":$("#telefono").val(),
+        "direccion":$("#direccion").val(),
+        "numero":$("#numero").val(),
         "poblacion":$("#poblacion").val(),
     }
     // console.log(datos)
     $.ajax({
-        url:"php/clientes_f.php",
+        url:"php/empleados_f.php",
         type:"POST",
         data: datos,
         success: function(response){
@@ -169,20 +190,20 @@ function edit_client(){
             console.log("Error en la peticion AJAX: " + errorThrown + ", " + textStatus);
         }
     }).done(function(){
-        location.href ="clientes.php";
+        location.href ="empleados.php";
     });
 
 }
 
 //Funcion en la que recogemos el campo de id del model de borrar,
 //Realizamos una peticion AJAX en la que le pasamos el id y la operacion a realizar
-function delete_client(){
+function delete_employee(){
     var datos = {
-        "op": "deleteCliente",
-        "idCliente":$("#idClienteD").val()
+        "op": "deleteEmployee",
+        "idEmployee":$("#idEmployeeD").val()
     }
     $.ajax({
-        url:"php/clientes_f.php",
+        url:"php/empleados_f.php",
         type:"POST",
         data: datos,
         success: function(response){
@@ -194,6 +215,6 @@ function delete_client(){
             console.log("Error en la peticion AJAX: " + errorThrown + ", " + textStatus);
         }
     }).done(function(){
-        location.href ="clientes.php";
+        location.href ="empleados.php";
     });
 }
