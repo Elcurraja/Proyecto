@@ -22,7 +22,6 @@
             <table class="table table-striped table-bordered" id="table_provider"> 
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col">#</th>
                         <th scope="col">Denominacion</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Direccion</th>
@@ -122,6 +121,6 @@
 
 <script src="js/lib/bootstrap.min.js"></script>
 <script src="js/lib/datatables.min.js"></script>  
-<script src='js/proveedor.js'></script>
+<script src='js/proveedores.js'></script>
 </body>
 </html>

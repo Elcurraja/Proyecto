@@ -8,33 +8,19 @@ $(document).ready(function() {
    
         let  data = {
             'id':fila.find('> input').val(),
-            'nombre':fila.find('td:nth-child(2) > span').text(),
-            'apellidos':fila.find('td:nth-child(3) > span').text(),
-            'dni':fila.find('td:nth-child(4) > span').text(),
-            'fecha_nacimiento':fila.find('td:nth-child(5) > span').text(),
-            'inicio_contrato':fila.find('td:nth-child(6) > span').text(),
-            'fin_contrato':fila.find('td:nth-child(7) > span').text(),
-            'puesto':fila.find('td:nth-child(8) > span').text(),
-            'telefono':fila.find('td:nth-child(9) > span').text(),
-            'direccion':fila.find('td:nth-child(10) > span').text(),
-            'numero':fila.find('td:nth-child(11) > span').text(),
-            'poblacion':fila.find('td:nth-child(12) > span').text(),
+            'denominacion':fila.find('td:nth-child(2) > span').text(),
+            'nombre':fila.find('td:nth-child(3) > span').text(),
+            'direccion':fila.find('td:nth-child(4) > span').text(),
+            'telefono':fila.find('td:nth-child(5) > span').text(),
         }
        //Si el ID del boton es edit
         if($(this).attr('id')=='edit'){
             //Asignamos los valores del modal con los datos de la fila correspondiente de la tabla
-            $("#modalProvider #idEmployee").val(data.id)
+            $("#modalProvider #idProvider").val(data.id)
+            $("#modalProvider #denominacion").val(data.denominacion)
             $("#modalProvider #nombre").val(data.nombre)
-            $("#modalProvider #apellidos").val(data.apellidos)
-            $("#modalProvider #dni").val(data.dni)
-            $("#modalProvider #fecha_nacimiento").val(data.fecha_nacimiento)
-            $("#modalProvider #inicio_contrato").val(data.inicio_contrato)
-            $("#modalProvider #fin_contrato").val(data.fin_contrato)
-            $("#modalProvider #puesto").val(data.puesto)
-            $("#modalProvider #telefono").val(data.telefono)
             $("#modalProvider #direccion").val(data.direccion)
-            $("#modalProvider #numero").val(data.numero)
-            $("#modalProvider #poblacion").val(data.poblacion)
+            $("#modalProvider #telefono").val(data.telefono)
             //Ocultamos el voton de insertar y mostramos el de editar, luego mostramos el model
             $("button#edit").css("display","block")
             $("button#add").css("display","none")
@@ -42,12 +28,12 @@ $(document).ready(function() {
         }
         //Si el ID del boton es delete, mostramos un mensaje de confirmacion  de borrado para el empleado data.id
         else if($(this).attr('id')=='delete'){
-            $('#cuerpo_mensaje').html(  "<span>Nombre: "+ data.nombre + " " + data.apellidos + "</span>"+
-                                        "<input type='hidden' class='form-control' name='idEmployeeD' id='idEmployeeD' value='"+ data.id +"'>")
+            $('#cuerpo_mensaje').html(  "<span>Nombre: "+ data.nombre +"</span>"+
+                                        "<input type='hidden' class='form-control' name='idProviderD' id='idProviderD' value='"+ data.id +"'>")
             $('#modal_confirm_borrar').modal('show')
         }
         //Si el ID del boton es añadir ocultamos el boton de editar en el modal y mostramos el de insertar
-        else if($(this).attr('id')=='addEmploye'){
+        else if($(this).attr('id')=='addProvider'){
             $("button#edit").css("display","none")
             $("button#add").css("display","block")
             $('#modalProvider').modal('show')
@@ -67,21 +53,14 @@ function get_provider(){
         success:function(response){
             // console.log(response.datosCliente)
             $("#table_provider tbody").empty();
-                for (let index = 0; index < response.datosEmployee.length; index++){
+                for (let index = 0; index < response.datosProvider.length; index++){
                     $("#table_provider tbody").append(
                         "<tr class='fila'>"+
-                        "<input type='hidden' class='form-control' name='idEmployee' id='idEmployee' value='"+ response.datosEmployee[index].id +"'>"+
-                        "<td><span>"+ response.datosEmployee[index].nombre +"</span></td>"+
-                        "<td><span>"+ response.datosEmployee[index].apellidos +"</span></td>"+
-                        "<td><span>"+ response.datosEmployee[index].dni +"</span></td>"+
-                        "<td><span>"+ response.datosEmployee[index].fecha_nacimiento +"</span></td>"+
-                        "<td><span>"+ response.datosEmployee[index].fecha_contratacion +"</span></td>"+
-                        "<td><span>"+ response.datosEmployee[index].fecha_fin_contrato +"</span></td>"+
-                        "<td><span>"+ response.datosEmployee[index].puesto +"</span></td>"+
-                        "<td><span>"+ response.datosEmployee[index].telefono +"</span></td>"+
-                        "<td><span>"+ response.datosEmployee[index].direccion +"</span></td>"+
-                        "<td><span>"+ response.datosEmployee[index].numero +"</span></td>"+
-                        "<td><span>"+ response.datosEmployee[index].poblacion +"</span></td>"+
+                        "<input type='hidden' class='form-control' name='idProvider' id='idProvider' value='"+ response.datosProvider[index].id +"'>"+
+                        "<td><span>"+ response.datosProvider[index].denominacion +"</span></td>"+
+                        "<td><span>"+ response.datosProvider[index].nombre +"</span></td>"+
+                        "<td><span>"+ response.datosProvider[index].direccion +"</span></td>"+
+                        "<td><span>"+ response.datosProvider[index].telefono +"</span></td>"+
                         "<td><button class='btn' id='edit'><i class='fas fa-edit'></i></button><button class='btn' type='submit' id='delete'><i class='fas fa-trash'></i></button></td>");
                 }
         },
@@ -124,25 +103,18 @@ function get_provider(){
     });
 
 }
-function insert_employee(){
+function insert_provider(){
     var datos = {
-        "op": "insertEmployee",
-        "idEmployee":$("#idEmployee").val(),
+        "op": "insertProvider",
+        "idProvider":$("#idProvider").val(),
+        "denominacion":$("#denominacion").val(),
         "nombre":$("#nombre").val(),
-        "apellidos":$("#apellidos").val(),
-        "dni":$("#dni").val(),
-        "fecha_nacimiento":$("#fecha_nacimiento").val(),
-        "inicio_contrato":$("#inicio_contrato").val(),
-        "fin_contrato":$("#fin_contrato").val(),
-        "puesto":$("#puesto").val(),
-        "telefono":$("#telefono").val(),
         "direccion":$("#direccion").val(),
-        "numero":$("#numero").val(),
-        "poblacion":$("#poblacion").val(),
+        "telefono":$("#telefono").val()
     }
-    // console.log(datos)
+    console.log(datos)
     $.ajax({
-        url:"php/empleados_f.php",
+        url:"php/proveedores_f.php",
         type:"POST",
         data: datos,
         success: function(response){
@@ -154,28 +126,21 @@ function insert_employee(){
             console.log("Error en la peticion AJAX: " + errorThrown + ", " + textStatus);
         }
     }).done(function(){
-        location.href ="empleados.php";
+        // location.href ="proveedores.php";
     });
 }
-function edit_employee(){
+function edit_provider(){
     var datos = {
-        "op": "editEmployee",
-        "idEmployee":$("#idEmployee").val(),
+        "op": "editProvider",
+        "idProvider":$("#idProvider").val(),
+        "denominacion":$("#denominacion").val(),
         "nombre":$("#nombre").val(),
-        "apellidos":$("#apellidos").val(),
-        "dni":$("#dni").val(),
-        "fecha_nacimiento":$("#fecha_nacimiento").val(),
-        "inicio_contrato":$("#inicio_contrato").val(),
-        "fin_contrato":$("#fin_contrato").val(),
-        "puesto":$("#puesto").val(),
-        "telefono":$("#telefono").val(),
         "direccion":$("#direccion").val(),
-        "numero":$("#numero").val(),
-        "poblacion":$("#poblacion").val(),
+        "telefono":$("#telefono").val()
     }
     // console.log(datos)
     $.ajax({
-        url:"php/empleados_f.php",
+        url:"php/proveedores_f.php",
         type:"POST",
         data: datos,
         success: function(response){
@@ -187,20 +152,20 @@ function edit_employee(){
             console.log("Error en la peticion AJAX: " + errorThrown + ", " + textStatus);
         }
     }).done(function(){
-        location.href ="empleados.php";
+        // location.href ="proveedores.php";
     });
 
 }
 
 //Funcion en la que recogemos el campo de id del model de borrar,
 //Realizamos una peticion AJAX en la que le pasamos el id y la operacion a realizar
-function delete_employee(){
+function delete_provider(){
     var datos = {
-        "op": "deleteEmployee",
-        "idEmployee":$("#idEmployeeD").val()
+        "op": "deleteProvider",
+        "idProvider":$("#idProviderD").val()
     }
     $.ajax({
-        url:"php/empleados_f.php",
+        url:"php/proveedores_f.php",
         type:"POST",
         data: datos,
         success: function(response){
@@ -212,6 +177,6 @@ function delete_employee(){
             console.log("Error en la peticion AJAX: " + errorThrown + ", " + textStatus);
         }
     }).done(function(){
-        location.href ="empleados.php";
+        // location.href ="proveedores.php";
     });
 }
