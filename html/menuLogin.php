@@ -24,7 +24,7 @@
                     <div id="divlow1"></div>
                 </li>
                 <li class="menu_li nav-item">
-                    <a class="nav-link" href="#">Productos</a>
+                    <a class="nav-link" href="./productos.php">Productos</a>
                     <div id="divlow2"></div>
                 </li>
                 <li class="menu_li nav-item">
@@ -44,6 +44,16 @@
                         <a class="dropdown-item" href="./empleados.php">Empleados</a>
                         <a class="dropdown-item" href="./proveedores.php">Proveedores</a>
                         <a class="dropdown-item" href="./clientes.php">Clientes</a>
+                    </div>
+                </li>
+                <li class="menu_li nav-item dropdown ">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Herramientas
+                    </a>
+                    <div id="divlow6"></div>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="./empleados.php">Estadisticas Venta</a>
+                        <a class="dropdown-item" href="./proveedores.php">Seguimiento</a>
                     </div>
                 </li>
                 <li class="menu_li nav-item">
