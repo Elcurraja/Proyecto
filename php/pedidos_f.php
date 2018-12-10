@@ -3,59 +3,74 @@ include("mysqlConexion.php");
 
 if(isset($_POST['op'])){
     switch($_POST['op']){
-        case 'getProductos':
-            get_Productos();
+        case 'getOrders':
+            get_Orders();
             break;
-        case 'insertProducto':
-            insert_Productos();
+        case 'insertOrder':
+            insert_Order();
             break;
-        case 'editProducto':
-            edit_Productos();
+        case 'editOrder':
+            edit_Order();
             break;
-        case 'deleteProducto': 
-            delete_Productos();
+        case 'deleteOrder': 
+            delete_Order();
             break;
     }
 }
-function get_Productos(){
+function get_Orders(){
 
     $conn=mysql_proyecto();
-    $query= "SELECT * from productos";
     $response = array();
 
+    $query= "SELECT * from pedidos_clientes";
     $resultQuery =$conn->query($query);
     if (!$resultQuery) {
         $response['error'] = 1;
         $response['mensaje'] = "Error en la consulta: " + $conexion->error;
     } else {
         $response['error'] = 0;
-        $response['datosProductos'] = array();
+        $response['datosOrders'] = array();
+        while ($fila = $resultQuery->fetch_assoc()){
+            $datos = array(
+                'id' => $fila['id_pedido'],
+                'id_cliente' => $fila['id_cliente'],
+                'observaciones' => $fila['observaciones'],
+                'fecha' => $fila['fecha'],
+            );
+            array_push($response['datosOrders'], $datos);
+        }
+    }
+
+    $query= "SELECT id,denominacionSocial from clientes";
+    $resultQuery =$conn->query($query);
+    if (!$resultQuery) {
+        $response['error'] = 1;
+        $response['mensaje'] = "Error en la consulta: " + $conexion->error;
+    } else {
+        $response['error'] = 0;
+        $response['datosClient'] = array();
         while ($fila = $resultQuery->fetch_assoc()){
             $datos = array(
                 'id' => $fila['id'],
-                'nombre' => $fila['nombre'],
-                'tipo' => $fila['tipo'],
-                'disponible' => $fila['disponible'],
-                'descripcion' => $fila['descripcion'],
-                'precio' => $fila['precio']
+                'denominacion' => $fila['denominacionSocial'],
             );
-            array_push($response['datosProductos'], $datos);
+            array_push($response['datosClient'], $datos);
         }
     }
+
     echo json_encode($response);
     $conn->close();
 }
-function insert_Productos(){
+function insert_Order(){
     $conn=mysql_proyecto();
     $conn->begin_transaction();
     $nombre = $_POST['nombre'];
-    $tipo = $_POST['tipo'];
-    $disponible = $_POST['disponible'];
-    $descripcion = $_POST['descripcion'];
-    $precio = $_POST['precio'];
+    $id_cliente = $_POST['id_cliente'];
+    $observaciones = $_POST['observaciones'];
+    $fecha = $_POST['fecha'];
     try {
-        $query = "  INSERT INTO productos (nombre,tipo,disponible,descripcion,precio)
-                    VALUES('$nombre','$tipo','$disponible','$descripcion','$precio')";
+        $query = "  INSERT INTO pedidos (id_cliente,observaciones,fecha)
+                    VALUES('$id_cliente','$observaciones','$fecha')";
         $resultQuery = $conn->query($query);
         if (!$resultQuery) {
             throw new Exception($conn->error);
@@ -74,19 +89,17 @@ function insert_Productos(){
     header('Content-type: application/json; charset=utf-8');
     echo json_encode($response);
 }
-function edit_Productos(){
+function edit_Order(){
     $conn=mysql_proyecto();
     $conn->begin_transaction();
-    $idProductos = $_POST['idProducto'];
-    $nombre = $_POST['nombre'];
-    $tipo = $_POST['tipo'];
-    $disponible = $_POST['disponible'];
-    $descripcion = $_POST['descripcion'];
-    $precio = $_POST['precio'];
-
+    $idOrder = $_POST['idOrder'];
+    $idCliente = $_POST['idCliente'];
+    $observaciones = $_POST['observaciones'];
+    $fecha = $_POST['fecha'];
+    
     try {
-        $query = "  UPDATE productos 
-                    SET nombre='$nombre',tipo='$tipo',disponible='$disponible',descripcion='$descripcion',precio='$precio' WHERE id=$idProductos";
+        $query = "  UPDATE pedidos 
+                    SET idCliente='$idCliente',observaciones='$observaciones',fecha='$fecha' WHERE id_pedido=$idOrder";
         $resultQuery = $conn->query($query);
         if (!$resultQuery) {
             throw new Exception($conn->error);
@@ -106,12 +119,12 @@ function edit_Productos(){
     header('Content-type: application/json; charset=utf-8');
     echo json_encode($response);
 }
-function delete_Productos(){
+function delete_Order(){
     $conn=mysql_proyecto();
     $conn->begin_transaction();
-    $idProducto = $_POST['idProducto'];
+    $idOrder = $_POST['idOrder'];
     try {
-        $query= "DELETE FROM productos where id=$idProducto";
+        $query= "DELETE FROM pedidos where id=$idOrder";
         $resultQuery = $conn->query($query);
         if (!$resultQuery) {
             throw new Exception($conn->error);

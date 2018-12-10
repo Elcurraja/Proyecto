@@ -28,7 +28,7 @@
                     <div id="divlow2"></div>
                 </li>
                 <li class="menu_li nav-item">
-                    <a class="nav-link" href="#">Pedidos</a>
+                    <a class="nav-link" href="./pedidos.php">Pedidos</a>
                     <div id="divlow3"></div>
                 </li>
                 <li class="menu_li nav-item">

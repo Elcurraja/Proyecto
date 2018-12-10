@@ -55,18 +55,23 @@ function get_product(){
             "op":"getProductos"
         },
         success:function(response){
+            if ($.fn.dataTable.isDataTable("#table_productos")) {
+                tabla.destroy();
+                $('#modalProductos').modal('hide')
+            }
             // console.log(response.datosCliente)
             $("#table_productos tbody").empty();
                 for (let index = 0; index < response.datosProductos.length; index++){
                     $("#table_productos tbody").append(
                         "<tr class='fila'>"+
-                        "<input type='hidden' class='form-control' name='idProductos' id='idProductos' value='"+ response.datosProductos[index].id +"'>"+
-                        "<td><span>"+ response.datosProductos[index].nombre +"</span></td>"+
-                        "<td><span>"+ response.datosProductos[index].tipo +"</span></td>"+
-                        "<td><span>"+ response.datosProductos[index].disponible +"</span></td>"+
-                        "<td><span>"+ response.datosProductos[index].descripcion +"</span></td>"+
-                        "<td><span>"+ response.datosProductos[index].precio +"</span></td>"+
-                        "<td><button class='btn' id='edit'><i class='fas fa-edit'></i></button><button class='btn' type='submit' id='delete'><i class='fas fa-trash'></i></button></td>");
+                            "<input type='hidden' class='form-control' name='idProductos' id='idProductos' value='"+ response.datosProductos[index].id +"'>"+
+                            "<td><span>"+ response.datosProductos[index].nombre +"</span></td>"+
+                            "<td><span>"+ response.datosProductos[index].tipo +"</span></td>"+
+                            "<td><span>"+ response.datosProductos[index].disponible +"</span></td>"+
+                            "<td><span>"+ response.datosProductos[index].descripcion +"</span></td>"+
+                            "<td><span>"+ response.datosProductos[index].precio +"</span></td>"+
+                            "<td><button class='btn' id='edit'><i class='fas fa-edit'></i></button><button class='btn' type='submit' id='delete'><i class='fas fa-trash'></i></button></td>"+
+                        "</tr>");
                 }
         },
         error:function(jqXHR, textStatus, errorThrown){
@@ -108,13 +113,12 @@ function get_product(){
     });
 
 }
-function insert_provider(){
+function insert_product(){
     var datos = {
         "op": "insertProducto",
-        "idProducto":$("#idProducto").val(),
         "nombre":$("#nombre").val(),
         "tipo":$("#tipo").val(),
-        "disponible":$("#disponible").val(),
+        "disponible":$("#cDisponible").val(),
         "descripcion":$("#descripcion").val(),
         "precio":$("#precio").val()
     }
@@ -132,16 +136,16 @@ function insert_provider(){
             console.log("Error en la peticion AJAX: " + errorThrown + ", " + textStatus);
         }
     }).done(function(){
-        // location.href ="proveedores.php";
+        location.href ="productos.php";
     });
 }
-function edit_provider(){
+function edit_product(){
     var datos = {
         "op": "editProducto",
         "idProducto":$("#idProducto").val(),
         "nombre":$("#nombre").val(),
         "tipo":$("#tipo").val(),
-        "disponible":$("#disponible").val(),
+        "disponible":$("#cDisponible").val(),
         "descripcion":$("#descripcion").val(),
         "precio":$("#precio").val()
     }
@@ -159,14 +163,14 @@ function edit_provider(){
             console.log("Error en la peticion AJAX: " + errorThrown + ", " + textStatus);
         }
     }).done(function(){
-        // location.href ="proveedores.php";
+        get_product()
     });
 
 }
 
 //Funcion en la que recogemos el campo de id del model de borrar,
 //Realizamos una peticion AJAX en la que le pasamos el id y la operacion a realizar
-function delete_producto(){
+function delete_product(){
     var datos = {
         "op": "deleteProducto",
         "idProducto":$("#idProductoD").val()
@@ -184,6 +188,6 @@ function delete_producto(){
             console.log("Error en la peticion AJAX: " + errorThrown + ", " + textStatus);
         }
     }).done(function(){
-        // location.href ="proveedores.php";
+        get_product()
     });
 }

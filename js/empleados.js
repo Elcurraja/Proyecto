@@ -68,6 +68,10 @@ function get_employee(){
             "op":"getEmployee"
         },
         success:function(response){
+            if ($.fn.dataTable.isDataTable("#table_employee")) {
+                tabla.destroy();
+                $('#modalEmployee').modal('hide')
+            }
             // console.log(response.datosCliente)
             $("#table_employee tbody").empty();
                 for (let index = 0; index < response.datosEmployee.length; index++){
@@ -157,7 +161,7 @@ function insert_employee(){
             console.log("Error en la peticion AJAX: " + errorThrown + ", " + textStatus);
         }
     }).done(function(){
-        location.href ="empleados.php";
+        get_employee()
     });
 }
 function edit_employee(){
@@ -190,7 +194,7 @@ function edit_employee(){
             console.log("Error en la peticion AJAX: " + errorThrown + ", " + textStatus);
         }
     }).done(function(){
-        location.href ="empleados.php";
+        get_employee()
     });
 
 }
@@ -215,6 +219,6 @@ function delete_employee(){
             console.log("Error en la peticion AJAX: " + errorThrown + ", " + textStatus);
         }
     }).done(function(){
-        location.href ="empleados.php";
+        get_employee()
     });
 }

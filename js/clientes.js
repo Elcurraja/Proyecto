@@ -57,6 +57,10 @@ function get_client(){
             "op":"getClientes"
         },
         success:function(response){
+            if ($.fn.dataTable.isDataTable("#tabla_clientes")) {
+                tabla.destroy();
+                $('#modalEditCliente').modal('hide')
+            }
             // console.log(response.datosCliente)
             $("#tabla_clientes tbody").empty();
                 for (let index = 0; index < response.datosCliente.length; index++){
@@ -122,7 +126,6 @@ function insert_client(){
         "telefono":$("#telefono").val(),
         "poblacion":$("#poblacion").val(),
     }
-    // console.log(datos)
     $.ajax({
         url:"php/clientes_f.php",
         type:"POST",
@@ -136,7 +139,7 @@ function insert_client(){
             console.log("Error en la peticion AJAX: " + errorThrown + ", " + textStatus);
         }
     }).done(function(){
-        location.href ="clientes.php";
+        get_client()
     });
 }
 function edit_client(){
@@ -164,7 +167,7 @@ function edit_client(){
             console.log("Error en la peticion AJAX: " + errorThrown + ", " + textStatus);
         }
     }).done(function(){
-        location.href ="clientes.php";
+        get_client()
     });
 
 }
@@ -189,6 +192,6 @@ function delete_client(){
             console.log("Error en la peticion AJAX: " + errorThrown + ", " + textStatus);
         }
     }).done(function(){
-        location.href ="clientes.php";
+        get_client()
     });
 }
