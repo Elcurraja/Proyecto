@@ -9,7 +9,7 @@ $(document).ready(function() {
     $(document).on ("click", "button", function () {
         var fila = $(this).closest('tr')
         let  data = {
-            'id':fila.find('td:nth-child(1) > span').text(),
+            'idCliente':fila.find('input').val(),
             'denominacion':fila.find('td:nth-child(2) > span').text(),
             'nombre':fila.find('td:nth-child(3) > span').text(),
             'apellidos':fila.find('td:nth-child(4) > span').text(),
@@ -17,32 +17,39 @@ $(document).ready(function() {
             'telefono':fila.find('td:nth-child(6) > span').text(),
             'poblacion':fila.find('td:nth-child(7) > span').text(),
         }
+        console.log(data)
        //Si el ID del boton es edit
         if($(this).attr('id')=='edit'){
             //Asignamos los valores del modal con los datos de la fila correspondiente de la tabla
-            $("#modalEditCliente #idCliente").val(data.id)
-            $("#modalEditCliente #denominacion").val(data.denominacion)
-            $("#modalEditCliente #nombre").val(data.nombre)
-            $("#modalEditCliente #apellido").val(data.apellidos)
-            $("#modalEditCliente #direccion").val(data.direccion)
-            $("#modalEditCliente #telefono").val(data.telefono)
-            $("#modalEditCliente #poblacion").val(data.poblacion)
-            $("button#edit").css("display","block")
-            $("button#add").css("display","none")
-            $('#modalEditCliente').modal('show')
+            $("#modalClient #idCliente").val(data.idCliente)
+            $("#modalClient #denominacion").val(data.denominacion)
+            $("#modalClient #nombre").val(data.nombre)
+            $("#modalClient #apellido").val(data.apellidos)
+            $("#modalClient #direccion").val(data.direccion)
+            $("#modalClient #telefono").val(data.telefono)
+            $("#modalClient #poblacion").val(data.poblacion)
+
+            $("button#editModal").css("display","block")
+            $("button#addModal").css("display","none")
+            $(".modal-title").html("Editar Cliente")
+
+            $('#modalClient').modal('show')
         }
         //Si el ID del boton es delete
         else if($(this).attr('id')=='delete'){
             $('#cuerpo_mensaje').html(  "<span>Cliente: " + data.denominacion + "</span></br>" + 
                                         "<span>Nombre: "+ data.nombre + " " + data.apellidos + "</span>"+
-                                        "<input type='hidden' class='form-control' name='idClienteD' id='idClienteD' value='"+ data.id +"'>")
+                                        "<input type='hidden' class='form-control' name='idClienteD' id='idClienteD' value='"+ data.idCliente +"'>")
             $('#modal_confirm_borrar').modal('show')
         }
         //Si el ID del boton es añadir
         else if($(this).attr('id')=='addClient'){
-            $("button#edit").css("display","none")
-            $("button#add").css("display","block")
-            $('#modalEditCliente').modal('show')
+            $("button#editModal").css("display","none")
+            $("button#addModal").css("display","block")
+            $(".modal-title").html("Añadir Cliente")
+            
+            $("#modalClient input").val('')
+            $('#modalClient').modal('show')
         }
     });
     
@@ -57,16 +64,12 @@ function get_client(){
             "op":"getClientes"
         },
         success:function(response){
-            if ($.fn.dataTable.isDataTable("#tabla_clientes")) {
-                tabla.destroy();
-                $('#modalEditCliente').modal('hide')
-            }
             // console.log(response.datosCliente)
             $("#tabla_clientes tbody").empty();
                 for (let index = 0; index < response.datosCliente.length; index++){
                     $("#tabla_clientes tbody").append(
                         "<tr class='fila'>"+
-                        "<td><span>"+ response.datosCliente[index].id +"</span></td>"+
+                        "<input type='hidden' class='form-control' name='idClient' id='idClient' value='"+ response.datosCliente[index].id +"'>"+
                         "<td><span>"+ response.datosCliente[index].denominacion +"</span></td>"+
                         "<td><span>"+ response.datosCliente[index].nombre +"</span></td>"+
                         "<td><span>"+ response.datosCliente[index].apellidos +"</span></td>"+
@@ -126,6 +129,7 @@ function insert_client(){
         "telefono":$("#telefono").val(),
         "poblacion":$("#poblacion").val(),
     }
+    // console.log(datos)
     $.ajax({
         url:"php/clientes_f.php",
         type:"POST",
@@ -139,7 +143,7 @@ function insert_client(){
             console.log("Error en la peticion AJAX: " + errorThrown + ", " + textStatus);
         }
     }).done(function(){
-        get_client()
+        location.href ="clientes.php";
     });
 }
 function edit_client(){
@@ -167,7 +171,7 @@ function edit_client(){
             console.log("Error en la peticion AJAX: " + errorThrown + ", " + textStatus);
         }
     }).done(function(){
-        get_client()
+        location.href ="clientes.php";
     });
 
 }
@@ -192,6 +196,6 @@ function delete_client(){
             console.log("Error en la peticion AJAX: " + errorThrown + ", " + textStatus);
         }
     }).done(function(){
-        get_client()
+        location.href ="clientes.php";
     });
 }

@@ -7,13 +7,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat" >
     <link rel="stylesheet" type="text/css" href="css/lib/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/lib/datatables.min.css">
+    <link rel="stylesheet" type="text/css" href="css/lib/tempusdominus-bootstrap-4.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/styles.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
     <script src="js/lib/jquery-3.3.1.js"></script>
+    
     <title>Empleados</title>
 </head>
 <body>
@@ -25,7 +28,6 @@
             <table class="table table-striped table-bordered" id="table_employee"> 
                 <thead class="thead-dark">
                     <tr>
-                        
                         <th scope="col">Nombre</th>
                         <th scope="col">Apellidos</th>
                         <th scope="col">DNI</th>
@@ -61,7 +63,7 @@
             <tbody id="modalEmployee">
                 <tr>
                     <td>
-                        <label for="nombre">Nombre </label>
+                        <label for="nombre">Nombre</label>
                     </td>
                     <td>
                         <input type="text" class="form-control" name="nombre" id="nombre"/>
@@ -88,28 +90,44 @@
                         <label for="fecha_nacimiento">Fecha Nacimiento </label>
                     </td>
                     <td>
-                        <input type="text" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento"/>
+                        <div class="input-group date" id="fecha_nacimiento" data-target-input="nearest">
+                            <input type="text" class="form-control datetimepicker-input" data-target="#fecha_nacimiento"/>
+                            <div class="input-group-append" data-target="#fecha_nacimiento" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label for="inicio_contrato">Inicio Contrato </label>
+                        <label for="inicio_contrato">Fecha Inicio de Contrato </label>
                     </td>
                     <td>
-                        <input type="text" class="form-control" name="inicio_contrato" id="inicio_contrato"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="fin_contrato">Fin Contrato </label>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control" name="fin_contrato" id="fin_contrato"/>
+                        <div class="input-group date" id="inicio_contrato" data-target-input="nearest">
+                            <input type="text" class="form-control datetimepicker-input" data-target="#inicio_contrato"/>
+                            <div class="input-group-append" data-target="#inicio_contrato" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label for="puesto">Puesto </label>
+                        <label for="fin_contrato">Fecha Fin de Contrato </label>
+                    </td>
+                    <td>
+                        <div class="input-group date" id="fin_contrato" data-target-input="nearest">
+                            <input type="text" class="form-control datetimepicker-input" data-target="#fin_contrato"/>
+                            <div class="input-group-append" data-target="#fin_contrato" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                            </div>
+                        </div>
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="puesto">Puesto</label>
                     </td>
                     <td>
                         <input type="text" class="form-control" name="puesto" id="puesto"/>
@@ -120,7 +138,7 @@
                         <label for="telefono">Telefono </label>
                     </td>
                     <td>
-                        <input type="text" class="form-control" name="telefono" id="telefono"/>
+                        <input type="number" class="form-control" name="telefono" id="telefono"/>
                     </td>
                 </tr>
                 <tr>
@@ -133,7 +151,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <label for="numero">numero </label>
+                        <label for="numero">Numero </label>
                     </td>
                     <td>
                         <input type="text" class="form-control" name="numero" id="numero"/>
@@ -154,8 +172,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" onclick ="insert_employee()" id="add">Añadir Nuevo Empleado</button>
-        <button type="button" class="btn btn-primary" onclick ="edit_employee()" id="edit" style="display:none">Editar Empleado</button>
+        <button type="button" class="btn btn-primary" onclick ="insert_employee()" id="addModal">Añadir Nuevo Empleado</button>
+        <button type="button" class="btn btn-primary" onclick ="edit_employee()" id="editModal" style="display:none">Editar Empleado</button>
       </div>
     </div>
   </div>
@@ -186,8 +204,12 @@
     </div>
 </div>
 
-<script src="js/lib/bootstrap.min.js"></script>
-<script src="js/lib/datatables.min.js"></script>  
-<script src='js/empleados.js'></script>
+
+<script type="text/javascript" src="js/lib/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/lib/datatables.min.js"></script>
+<script type="text/javascript" src="js/lib/moment.min.js"></script>
+<script type="text/javascript" src="js/lib/moment_locale_es.js"></script>
+<script type="text/javascript" src="js/lib/tempusdominus-bootstrap-4.min.js"></script>  
+<script type="text/javascript" src='js/empleados.js'></script>
 </body>
 </html>

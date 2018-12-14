@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
     <script src="js/lib/jquery-3.3.1.js"></script>
-    <title>Administracion Clientes</title>
+    <title>Document</title>
 </head>
 <body>
     <?php include('php/verifiLogin.php');?> 
@@ -22,7 +22,6 @@
             <table class="table table-striped table-bordered" id="tabla_clientes"> 
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col">#</th>
                         <th scope="col">Denominacion</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Apellidos</th>
@@ -41,16 +40,16 @@
 </div>
 
 <!-- Modal que cargamos para editar los registros -->
-<div class="modal fade" id="modalEditCliente" tabindex="-1" role="dialog" aria-labelledby="modalEditClienteLabel" aria-hidden="true">
+<div class="modal fade" id="modalClient" tabindex="-1" role="dialog" aria-labelledby="modalClientLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalEditClienteLabel">Editar Cliente</h5>
+        <h5 class="modal-title" id="modalClientLabel"></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
         <table class="table table-bordered" id="add_manip">
-            <tbody id="modalEditCliente">
+            <tbody id="modalClient">
                 <tr>
                     <td>
                         <label for="denominacion">Denominacion Social </label>
@@ -106,8 +105,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" onclick ="insert_client()" id="add">Añadir Nuevo Cliente</button>
-        <button type="button" class="btn btn-primary" onclick ="edit_client()" id="edit" style="display:none">Editar Cliente</button>
+        <button type="button" class="btn btn-primary" onclick ="insert_client()" id="addModal">Añadir Nuevo Cliente</button>
+        <button type="button" class="btn btn-primary" onclick ="edit_client()" id="editModal" style="display:none">Editar Cliente</button>
       </div>
     </div>
   </div>

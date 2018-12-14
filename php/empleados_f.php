@@ -54,13 +54,15 @@ function get_Employee(){
 function insert_Employee(){
     $conn=mysql_proyecto();
     $conn->begin_transaction();
-    $idEmployee = $_POST['idEmployee'];
     $nombre = $_POST['nombre'];
     $apellidos = $_POST['apellidos'];
     $dni = $_POST['dni'];
-    $fecha_nacimiento = $_POST['fecha_nacimiento'];
-    $fecha_contratacion = $_POST['inicio_contrato'];
-    $fecha_fin_contrato = $_POST['fin_contrato'];
+    $fecha_nacimiento_temp = explode("/",$_POST['fecha_nacimiento']);
+    $fecha_nacimiento =$fecha_nacimiento_temp[2]."-".$fecha_nacimiento_temp[1]."-".$fecha_nacimiento_temp[0];
+    $fecha_contratacion_temp = explode("/",$_POST['inicio_contrato']);
+    $fecha_contratacion =$fecha_contratacion_temp[2]."-".$fecha_contratacion_temp[1]."-".$fecha_contratacion_temp[0];
+    $fecha_fin_contrato_temp = explode("/",$_POST['fin_contrato']);
+    $fecha_fin_contrato =$fecha_fin_contrato_temp[2]."-".$fecha_fin_contrato_temp[1]."-".$fecha_fin_contrato_temp[0];
     $puesto = $_POST['puesto'];
     $telefono = $_POST['telefono'];
     $direccion = $_POST['direccion'];
@@ -68,21 +70,21 @@ function insert_Employee(){
     $poblacion = $_POST['poblacion'];
     try {
         $query = "  INSERT INTO empleados (nombre,apellidos,dni,fecha_nacimiento,fecha_contratacion,fecha_fin_contrato,puesto,telefono,direccion,numero,poblacion)
-                    VALUES('$nombre','$apellidos','$dni','$fecha_nacimiento','$fecha_contratacion','$fecha_fin_contrato','$puesto','$telefono','$direccion','$numero','$poblacion')";
+                    VALUES('$nombre','$apellidos','$dni','$fecha_nacimiento','$fecha_contratacion','$fecha_fin_contrato','$puesto','$telefono','$direccion',$numero,'$poblacion')";
                     echo $query;
         $resultQuery = $conn->query($query);
         if (!$resultQuery) {
             throw new Exception($conn->error);
         }
         else{
-            $response['errorUpdate'] = 0;
+            $response['errorInsert'] = 0;
         }
         $conn->commit();
     } 
     catch (Exception $e) {
         $conn->rollback();
-        $response['errorUpdate'] = 1;
-        $response['mensajeUpdate'] = $e->getMessage();
+        $response['errorInsert'] = 1;
+        $response['mensajeInsert'] = $e->getMessage();
     }
 
     header('Content-type: application/json; charset=utf-8');
@@ -95,9 +97,12 @@ function edit_Employee(){
     $nombre = $_POST['nombre'];
     $apellidos = $_POST['apellidos'];
     $dni = $_POST['dni'];
-    $fecha_nacimiento = $_POST['fecha_nacimiento'];
-    $fecha_contratacion = $_POST['inicio_contrato'];
-    $fecha_fin_contrato = $_POST['fin_contrato'];
+    $fecha_nacimiento_temp = explode("/",$_POST['fecha_nacimiento']);
+    $fecha_nacimiento =$fecha_nacimiento_temp[2]."-".$fecha_nacimiento_temp[1]."-".$fecha_nacimiento_temp[0];
+    $fecha_contratacion_temp = explode("/",$_POST['inicio_contrato']);
+    $fecha_contratacion =$fecha_contratacion_temp[2]."-".$fecha_contratacion_temp[1]."-".$fecha_contratacion_temp[0];
+    $fecha_fin_contrato_temp = explode("/",$_POST['fin_contrato']);
+    $fecha_fin_contrato =$fecha_fin_contrato_temp[2]."-".$fecha_fin_contrato_temp[1]."-".$fecha_fin_contrato_temp[0];
     $puesto = $_POST['puesto'];
     $telefono = $_POST['telefono'];
     $direccion = $_POST['direccion'];
@@ -114,6 +119,7 @@ function edit_Employee(){
         }
         else{
             $response['errorUpdate'] = 0;
+            $response['sql'] = $query;
         }
         
         $conn->commit();

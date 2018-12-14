@@ -87,6 +87,16 @@ body{
 #modalEditCliente span{
 font-weight: bold;
 }
+.busquedaFecha{
+    width: 35%;
+    margin-left: 30%;
+    margin-top: 2%;
+}
+.busquedaFecha p{
+    font-size: 1.3em;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+}
 /* .table td span{
     font-weight: bold;
    

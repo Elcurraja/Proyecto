@@ -1,45 +1,51 @@
 $(document).ready(function() {
-    //Llamamos al a funcion get_client() para cargar la tabla con todos los registros
+    //LLAMAMOS A LA FUNCION GET_CLIENTE() PARA CARGAR LA TABLA CON LOS REGISTROS DE NUESTRA BASE DE DATOS
     get_product()
 
-    //Recogemos el evento click de los botones, insertar, editar y borrar
+    //RECOGEMOS EL EVENTO CLICK DE LOS BOTONES "INSERTAR, EDITAR Y BORRAR"r
     $(document).on ("click", "button", function () {
         var fila = $(this).closest('tr')
-   
         let  data = {
-            'id':fila.find('> input').val(),
+            'idProducto':fila.find('> input').val(),
             'nombre':fila.find('td:nth-child(2) > span').text(),
             'tipo':fila.find('td:nth-child(3) > span').text(),
             'disponible':fila.find('td:nth-child(4) > span').text(),
             'descripcion':fila.find('td:nth-child(5) > span').text(),
             'precio':fila.find('td:nth-child(6) > span').text(),
         }
-        console.log(data)
-       //Si el ID del boton es edit
+        // console.log(data)
+
+        //SI EL ID DEL BOTON ES "EDIT"
         if($(this).attr('id')=='edit'){
-            //Asignamos los valores del modal con los datos de la fila correspondiente de la tabla
-            $("#modalProductos #idProducto").val(data.id)
+            //ASIGNAMOS LOS VALORES DEL MODAL CON LOS DATOS DE LA FILA CORRESPONDIENTES ALMACENADOS EN LA VARIABLE "DATA"
+            $("#modalProductos #idProducto").val(data.idProducto)
             $("#modalProductos #nombre").val(data.nombre)
             $("#modalProductos #tipo").val(data.tipo)
             $("#modalProductos #cDisponible").val(data.disponible)
             $("#modalProductos #descripcion").val(data.descripcion)
             $("#modalProductos #precio").val(data.precio)
-            //Ocultamos el voton de insertar y mostramos el de editar, luego mostramos el model
-            $("button#edit").css("display","block")
-            $("button#add").css("display","none")
+
+            //OCULTAMOS EL BOTON DE INSERTAR, MOSTRAMOS EL DE EDITAR, CABMIAMOS EL TITULO DEL MODAL Y MOSTRAMOS EL MODAL
+            $("button#editModal").css("display","block")
+            $("button#addModal").css("display","none")
+            $(".modal-title").html("Editar Producto")
             $('#modalProductos').modal('show')
         }
-        //Si el ID del boton es delete, mostramos un mensaje de confirmacion  de borrado para el empleado data.id
+        //SI EL ID DEL BOTON ES "DELETE", MOSTRAMOS EL MENSAJE DE CONFIRMACION DE BORRADO PARA EL PRODUCTO DATA.IDPRODUCTO
         else if($(this).attr('id')=='delete'){
             $('#cuerpo_mensaje').html(  "<span>Nombre: "+ data.nombre +"</span>"+
                                         "<span>Tipo: "+ data.tipo +"</span>"+
-                                        "<input type='hidden' class='form-control' name='idProductoD' id='idProductoD' value='"+ data.id +"'>")
+                                        "<input type='hidden' class='form-control' name='idProductoD' id='idProductoD' value='"+ data.idProducto +"'>")
             $('#modal_confirm_borrar').modal('show')
         }
-        //Si el ID del boton es añadir ocultamos el boton de editar en el modal y mostramos el de insertar
+        
+        //SI EL ID DEL BOTOON ES "ADDPRODUCT" OCULTAMOS EL BOTON DE EDITAR EN EL MODAL Y MOSTRAMOS EL DE INSERTAR, CAMBIAMOS EL TITULO DEL MODAL, LIMPIAMOS TODOS LOS CAMPOS Y LO MOSTRAMOS
         else if($(this).attr('id')=='addProduct'){
-            $("button#edit").css("display","none")
-            $("button#add").css("display","block")
+            $("button#editModal").css("display","none")
+            $("button#addModal").css("display","block")
+
+            $("#modalProductos input").val('')
+            $(".modal-title").html("Añadir Producto")
             $('#modalProductos').modal('show')
         }
     });
@@ -59,7 +65,6 @@ function get_product(){
                 tabla.destroy();
                 $('#modalProductos').modal('hide')
             }
-            // console.log(response.datosCliente)
             $("#table_productos tbody").empty();
                 for (let index = 0; index < response.datosProductos.length; index++){
                     $("#table_productos tbody").append(
@@ -149,7 +154,6 @@ function edit_product(){
         "descripcion":$("#descripcion").val(),
         "precio":$("#precio").val()
     }
-    // console.log(datos)
     $.ajax({
         url:"php/productos_f.php",
         type:"POST",
@@ -168,8 +172,8 @@ function edit_product(){
 
 }
 
-//Funcion en la que recogemos el campo de id del model de borrar,
-//Realizamos una peticion AJAX en la que le pasamos el id y la operacion a realizar
+/*FUNCION EN LA QUE RECOGEMOS EL CAMPO DE ID DEL MODEL DE BORRAR, REALIZAMOS UNA PETICION AJAX 
+  EN LA QUE LE PASAMOS DICHO ID Y LA OPERACION, EN ESTE CASO "DELETE"*/
 function delete_product(){
     var datos = {
         "op": "deleteProducto",

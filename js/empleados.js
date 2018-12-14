@@ -2,15 +2,11 @@ $(document).ready(function() {
     //Llamamos al a funcion get_client() para cargar la tabla con todos los registros
     get_employee()
 
-    // $('button#addClient').on("click",function(){
-    //     console.log("holi")
-    // })
     //Recogemos el evento click de los botones, insertar, editar y borrar
     $(document).on ("click", "button", function () {
         var fila = $(this).closest('tr')
-   
         let  data = {
-            'id':fila.find('> input').val(),
+            'idEmployee':fila.find('input').val(),
             'nombre':fila.find('td:nth-child(2) > span').text(),
             'apellidos':fila.find('td:nth-child(3) > span').text(),
             'dni':fila.find('td:nth-child(4) > span').text(),
@@ -21,38 +17,69 @@ $(document).ready(function() {
             'telefono':fila.find('td:nth-child(9) > span').text(),
             'direccion':fila.find('td:nth-child(10) > span').text(),
             'numero':fila.find('td:nth-child(11) > span').text(),
-            'poblacion':fila.find('td:nth-child(12) > span').text(),
+            'poblacion':fila.find('td:nth-child(12) > span').text()
         }
+
        //Si el ID del boton es edit
         if($(this).attr('id')=='edit'){
             //Asignamos los valores del modal con los datos de la fila correspondiente de la tabla
-            $("#modalEmployee #idEmployee").val(data.id)
+            $("#modalEmployee #idEmployee").val(data.idEmployee)
             $("#modalEmployee #nombre").val(data.nombre)
             $("#modalEmployee #apellidos").val(data.apellidos)
             $("#modalEmployee #dni").val(data.dni)
-            $("#modalEmployee #fecha_nacimiento").val(data.fecha_nacimiento)
-            $("#modalEmployee #inicio_contrato").val(data.inicio_contrato)
-            $("#modalEmployee #fin_contrato").val(data.fin_contrato)
+            $('#modalEmployee #fecha_nacimiento').datetimepicker({
+                locale: 'es',
+                format: 'DD/MM/YYYY',
+                date: data.fecha_nacimiento
+            });
+            $('#modalEmployee #inicio_contrato').datetimepicker({
+                locale: 'es',
+                format: 'DD/MM/YYYY',
+                date: data.inicio_contrato
+            });
+            $('#modalEmployee #fin_contrato').datetimepicker({
+                locale: 'es',
+                format: 'DD/MM/YYYY',
+                date: data.fin_contrato
+            });
             $("#modalEmployee #puesto").val(data.puesto)
             $("#modalEmployee #telefono").val(data.telefono)
             $("#modalEmployee #direccion").val(data.direccion)
             $("#modalEmployee #numero").val(data.numero)
             $("#modalEmployee #poblacion").val(data.poblacion)
-            //Ocultamos el voton de insertar y mostramos el de editar, luego mostramos el model
-            $("button#edit").css("display","block")
-            $("button#add").css("display","none")
+
+            $("button#editModal").css("display","block")
+            $("button#addModal").css("display","none")
+            $(".modal-title").html("Editar Empleado")
+
             $('#modalEmployee').modal('show')
         }
-        //Si el ID del boton es delete, mostramos un mensaje de confirmacion  de borrado para el empleado data.id
+        //Si el ID del boton es delete
         else if($(this).attr('id')=='delete'){
-            $('#cuerpo_mensaje').html(  "<span>Nombre: "+ data.nombre + " " + data.apellidos + "</span>"+
-                                        "<input type='hidden' class='form-control' name='idEmployeeD' id='idEmployeeD' value='"+ data.id +"'>")
+            $('#cuerpo_mensaje').html("<span>Nombre: "+ data.nombre + " " + data.apellidos + "</span>"+
+                                      "<input type='hidden' class='form-control' name='idEmployeeD' id='idEmployeeD' value='"+ data.idEmployee +"'>")
             $('#modal_confirm_borrar').modal('show')
         }
-        //Si el ID del boton es añadir ocultamos el boton de editar en el modal y mostramos el de insertar
+        //Si el ID del boton es añadir
         else if($(this).attr('id')=='addEmploye'){
-            $("button#edit").css("display","none")
-            $("button#add").css("display","block")
+            $("button#editModal").css("display","none")
+            $("button#addModal").css("display","block")
+            $(".modal-title").html("Añadir Empleado")
+
+            $("#modalEmployee input").val('')
+            $('#modalEmployee #fecha_nacimiento').datetimepicker({
+                locale: 'es',
+                format: 'DD/MM/YYYY',
+            });
+            $('#modalEmployee #inicio_contrato').datetimepicker({
+                locale: 'es',
+                format: 'DD/MM/YYYY',
+            });
+            $('#modalEmployee #fin_contrato').datetimepicker({
+                locale: 'es',
+                format: 'DD/MM/YYYY',
+            });
+
             $('#modalEmployee').modal('show')
         }
     });
@@ -68,16 +95,12 @@ function get_employee(){
             "op":"getEmployee"
         },
         success:function(response){
-            if ($.fn.dataTable.isDataTable("#table_employee")) {
-                tabla.destroy();
-                $('#modalEmployee').modal('hide')
-            }
             // console.log(response.datosCliente)
             $("#table_employee tbody").empty();
                 for (let index = 0; index < response.datosEmployee.length; index++){
                     $("#table_employee tbody").append(
                         "<tr class='fila'>"+
-                        "<input type='hidden' class='form-control' name='idEmployee' id='idEmployee' value='"+ response.datosEmployee[index].id +"'>"+
+                        "<input type='hidden' class='form-control' name='idEmployee' value='"+ response.datosEmployee[index].id +"'>"+
                         "<td><span>"+ response.datosEmployee[index].nombre +"</span></td>"+
                         "<td><span>"+ response.datosEmployee[index].apellidos +"</span></td>"+
                         "<td><span>"+ response.datosEmployee[index].dni +"</span></td>"+
@@ -134,19 +157,19 @@ function get_employee(){
 function insert_employee(){
     var datos = {
         "op": "insertEmployee",
-        "idEmployee":$("#idEmployee").val(),
         "nombre":$("#nombre").val(),
         "apellidos":$("#apellidos").val(),
         "dni":$("#dni").val(),
-        "fecha_nacimiento":$("#fecha_nacimiento").val(),
-        "inicio_contrato":$("#inicio_contrato").val(),
-        "fin_contrato":$("#fin_contrato").val(),
+        "fecha_nacimiento":$("#fecha_nacimiento").datetimepicker('date').format('L'),
+        "inicio_contrato":$("#inicio_contrato").datetimepicker('date').format('L'),
+        "fin_contrato":$("#fin_contrato").datetimepicker('date').format('L'),
         "puesto":$("#puesto").val(),
         "telefono":$("#telefono").val(),
         "direccion":$("#direccion").val(),
         "numero":$("#numero").val(),
-        "poblacion":$("#poblacion").val(),
+        "poblacion":$("#poblacion").val(),   
     }
+    
     // console.log(datos)
     $.ajax({
         url:"php/empleados_f.php",
@@ -161,7 +184,7 @@ function insert_employee(){
             console.log("Error en la peticion AJAX: " + errorThrown + ", " + textStatus);
         }
     }).done(function(){
-        get_employee()
+        // location.href ="empleados.php";
     });
 }
 function edit_employee(){
@@ -171,30 +194,30 @@ function edit_employee(){
         "nombre":$("#nombre").val(),
         "apellidos":$("#apellidos").val(),
         "dni":$("#dni").val(),
-        "fecha_nacimiento":$("#fecha_nacimiento").val(),
-        "inicio_contrato":$("#inicio_contrato").val(),
-        "fin_contrato":$("#fin_contrato").val(),
+        "fecha_nacimiento":$("#fecha_nacimiento").datetimepicker('date').format('L'),
+        "inicio_contrato":$("#inicio_contrato").datetimepicker('date').format('L'),
+        "fin_contrato":$("#fin_contrato").datetimepicker('date').format('L'),
         "puesto":$("#puesto").val(),
         "telefono":$("#telefono").val(),
         "direccion":$("#direccion").val(),
         "numero":$("#numero").val(),
-        "poblacion":$("#poblacion").val(),
+        "poblacion":$("#poblacion").val(),   
     }
-    // console.log(datos)
     $.ajax({
         url:"php/empleados_f.php",
         type:"POST",
         data: datos,
         success: function(response){
+            console.log(response.sql)
             if (response.error == 1) {
-                console.log("Error en php: " + json.mensaje);
+                console.log("Error en php: " + response.errorUpdate);
             }
         },
         error: function(response,jqXHR,textStatus, errorThrown){
             console.log("Error en la peticion AJAX: " + errorThrown + ", " + textStatus);
         }
     }).done(function(){
-        get_employee()
+        location.href ="empleados.php";
     });
 
 }
@@ -219,6 +242,6 @@ function delete_employee(){
             console.log("Error en la peticion AJAX: " + errorThrown + ", " + textStatus);
         }
     }).done(function(){
-        get_employee()
+        location.href ="empleados.php";
     });
 }

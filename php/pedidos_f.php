@@ -15,6 +15,9 @@ if(isset($_POST['op'])){
         case 'deleteOrder': 
             delete_Order();
             break;
+        case 'detailsOrder':
+            detailsOrder();
+            break;
     }
 }
 function get_Orders(){
@@ -36,12 +39,13 @@ function get_Orders(){
                 'id_cliente' => $fila['id_cliente'],
                 'observaciones' => $fila['observaciones'],
                 'fecha' => $fila['fecha'],
+                'estado' => $fila['estado'],
             );
             array_push($response['datosOrders'], $datos);
         }
     }
 
-    $query= "SELECT id,denominacionSocial from clientes";
+    $query= "SELECT id,denominacionSocial,direccion,telefono,poblacion from clientes";
     $resultQuery =$conn->query($query);
     if (!$resultQuery) {
         $response['error'] = 1;
@@ -53,6 +57,10 @@ function get_Orders(){
             $datos = array(
                 'id' => $fila['id'],
                 'denominacion' => $fila['denominacionSocial'],
+                'direccion' => $fila['direccion'],
+                'telefono' => $fila['telefono'],
+                'poblacion' => $fila['poblacion'],
+
             );
             array_push($response['datosClient'], $datos);
         }
@@ -143,5 +151,52 @@ function delete_Order(){
 
     header('Content-type: application/json; charset=utf-8');
     echo json_encode($response);
+}
+function detailsOrder(){
+    $conn=mysql_proyecto();
+    $response = array();
+    $idOrder = $_POST['idOrder'];
+    $query= "SELECT id_detPedido,id_pedido,id_item,cantidad,precio,(cantidad*precio) AS total FROM pedidos_clientes_det WHERE id_pedido=$idOrder";
+
+    $resultQuery =$conn->query($query);
+    if (!$resultQuery) {
+        $response['error'] = 1;
+        $response['mensaje'] = "Error en la consulta: " + $conexion->error;
+    } else {
+        $response['error'] = 0;
+        $response['datosDetailsOrder'] = array();
+        while ($fila = $resultQuery->fetch_assoc()){
+            $datos = array(
+                'idDetPedido' => $fila['id_detPedido'],
+                'idPedido' => $fila['id_pedido'],
+                'idItem' => $fila['id_item'],
+                'cantidad' => $fila['cantidad'],
+                'precio' => $fila['precio'],
+                'total' => $fila['total'],
+            );
+            array_push($response['datosDetailsOrder'], $datos);
+        }
+    }
+
+    $query= "SELECT id,nombre FROM productos";
+
+    $resultQuery =$conn->query($query);
+    if (!$resultQuery) {
+        $response['error'] = 1;
+        $response['mensaje'] = "Error en la consulta: " + $conexion->error;
+    } else {
+        $response['error'] = 0;
+        $response['datosProductos'] = array();
+        while ($fila = $resultQuery->fetch_assoc()){
+            $datos = array(
+                'idProducto' => $fila['id'],
+                'nombre' => $fila['nombre']
+            );
+            array_push($response['datosProductos'], $datos);
+        }
+    }
+
+    echo json_encode($response);
+    $conn->close();
 }
 ?>
