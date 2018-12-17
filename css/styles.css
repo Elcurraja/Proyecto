@@ -5,9 +5,6 @@
 .menu .dropdown-menu{
     background-color: #ff7961;
 }
-/* .menu{
-    box-shadow: 0px 10px 6px -4px #f44336;
-} */
 .menu .dropdown-menu{
     font-size: .7em;
 }
@@ -37,13 +34,19 @@ li.menu_li a {
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
 }
-
-body{
-    background-color: rgb(255, 255, 255);
+/*PEQUEÑA BARRA QUE APARECE DEBAJO DE CADA LISTA DEL MENU, PARA INDICARNOS DONDE ESTAMOS*/
+.subdiv{
+    height: 3.5px;
+    background-color:rgb(0, 0, 0)    ;
 }
-/* .cuerpo{
-    background-color: rgb(255, 255, 255);
-} */
+
+/* CSS BODY, DIV PRINCIPAL DE LA PAGINA Y LA TABLA*/
+body{
+    background-color: rgb(233, 233, 233);
+}
+.cuerpo{
+    background-color: white;
+}
 .cuerpo>button{
     margin-top:3%;
     margin-left: 7%;
@@ -52,24 +55,18 @@ body{
     width: 85%;
     margin: 3% 7%;
 }
-/*PEQUEÑA BARRA QUE APARECE DEBAJO DE CADA LISTA DEL MENU, PARA INDICARNOS DONDE ESTAMOS*/
-.subdiv{
-    height: 3.5px;
-    background-color:#8bb9d8;
+
+/* CSS PARA CENTRAR LOS DIVS DE LAS OPCIONES AL GENERAR LA DATATABLE*/
+div.table-responsive div .row:first-child{
+    margin:2% 6% 0%;
 }
-/* Contenedor del cuerpo de la pagina*/
-.contenedor{
-    width: 95%;
+ div.table-responsive div .row:last-child{
+    margin:2% 8% 0%;
 }
-/* [id$="_wrapper"] .row:first-child{
-    margin:2% 7% 0%;
-} */
-#table_employee_wrapper .row:first-child,#table_employee_wrapper .row:last-child  {
-    margin:2% 7% 0%;
-}
-/* Div que contiene el login*/
+/* DIV QUE CONTIENE EL LOGIN*/
 .form-login{
     width: 30%;
+    margin-top: 5%;
     margin-left: 35%;
 }
 .login_tittle{
@@ -84,23 +81,129 @@ body{
     font-size: 1.5em;
     width: 100%;
 }
+
+/* DIV QUE CONTIENE EL REGISTRO*/
+.form-register{
+    width: 30%;
+    margin-top: 5%;
+    margin-left: 35%;
+}
+.register_tittle{
+    font-size: 2.3em;
+    color:white;
+    text-align: center;
+}
+.form-register label{
+    font-size: 1.5em;
+}
+.form-register input[type="submit"]{
+    font-size: 1.5em;
+    width: 100%;
+}
+/* MODAL PARA EDITAR CLIENTE                  */
 #modalEditCliente span{
 font-weight: bold;
 }
-.busquedaFecha{
-    width: 35%;
-    margin-left: 30%;
-    margin-top: 2%;
+.info label{
+    font-size: 1.4em;
+    width: 45%;
+    margin-left: 20px;
 }
-.busquedaFecha p{
-    font-size: 1.3em;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
+/* ALINEAMOS LOS BOTONES EN LA PAGINA DE NUEVO PEDIDO */
+#verResumen{
+    margin-left: 0%;
 }
-/* .table td span{
-    font-weight: bold;
-   
+#borrarCarrito{
+    margin-right: 1%;
 }
-.table td{
+
+/*CSS PARA LOS DIVS QUE CONTIENEN CADA PRODUCTO, EN LA PAGINA DE NUEVO PEDIDO*/
+.item{
+    background-color: white;
     text-align: center;
-} */
+    width: 23%;
+    margin-right: 1%;
+    margin-top: 2%;
+    padding-left: 0px;
+}
+/* DESCRIPCION DEL ITEM */
+.item div#desc{
+    margin-top: 7%;
+    margin-left: 7%;
+}
+.item img{
+    margin-top: 10%;
+    margin-left: 8%;
+}
+.item span,#spanInfoFecha{
+    font-size: 1.2em;
+}
+.item input{
+    font-size: 1.2em;
+    text-align: center;
+}
+.item div.footerItem{
+    width: 30%;
+    margin-top: 4%;
+    margin-left: 40%;  
+}
+.item #addToCart{
+    width: 100%;
+}
+
+/* CSS PARA EL MODAL QUE APARECE AL ENTRAR EN RESUMENPEDIDOS*/
+#modalResumenPedidos{
+    margin-left:20%;
+}
+#table_resumen_pedido{
+    font-size: 1.4em;
+}
+div.estadistica{
+margin-top: 2%;
+margin-left: 5%;
+}
+div#busqueda_fecha,#generarEstadisticas{
+    width: 10%;
+}
+
+/* Footer */
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+section {
+    padding: 60px 0;
+}
+
+section .section-title {
+    text-align: center;
+    color: #E0A458;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+}
+#footer {
+    margin-top: 2%;
+    background: #E0A458 !important;
+}
+.footer-row{
+    margin-left: 30%;
+}
+#footer h5{
+	padding-left: 10px;
+    border-left: 3px solid #eeeeee;
+    padding-bottom: 6px;
+    margin-bottom: 20px;
+    color:#ffffff;
+}
+#footer a {
+    color: #ffffff;
+    text-decoration: none !important;
+    background-color: transparent;
+}
+
+
+@media (max-width:767px){
+	#footer h5 {
+    padding-left: 0;
+    border-left: transparent;
+    padding-bottom: 0px;
+    margin-bottom: 10px;
+}
+}

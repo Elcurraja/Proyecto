@@ -1,9 +1,10 @@
 $(document).ready(function() {
-    //Llamamos al a funcion get_client() para cargar la tabla con todos los registros
+    //LLAMAMOS A LA FUNCION PARA CARGAR LA TABLA CON TODOS LOS REGISTROS
     get_employee()
 
-    //Recogemos el evento click de los botones, insertar, editar y borrar
+    //RECOGEMOS EL EVENTO CLICK DE LOS BOTONES 
     $(document).on ("click", "button", function () {
+
         var fila = $(this).closest('tr')
         let  data = {
             'idEmployee':fila.find('input').val(),
@@ -19,14 +20,14 @@ $(document).ready(function() {
             'numero':fila.find('td:nth-child(11) > span').text(),
             'poblacion':fila.find('td:nth-child(12) > span').text()
         }
-
-       //Si el ID del boton es edit
+       //SI EL ID ES EDIT
         if($(this).attr('id')=='edit'){
-            //Asignamos los valores del modal con los datos de la fila correspondiente de la tabla
+            //ASIGNAMOS LOS VALORES DEL MODAL CON LOS DATOS DE LA FILA 
             $("#modalEmployee #idEmployee").val(data.idEmployee)
             $("#modalEmployee #nombre").val(data.nombre)
             $("#modalEmployee #apellidos").val(data.apellidos)
             $("#modalEmployee #dni").val(data.dni)
+            /*INICIALIZAMOS LOS CAMPOS DEL DATETIMEPICKER DE FECHA CON LOS VALORES DE DATA */
             $('#modalEmployee #fecha_nacimiento').datetimepicker({
                 locale: 'es',
                 format: 'DD/MM/YYYY',
@@ -48,19 +49,20 @@ $(document).ready(function() {
             $("#modalEmployee #numero").val(data.numero)
             $("#modalEmployee #poblacion").val(data.poblacion)
 
+            /** MOSTRAMOS EL BOTON DE EDITAR Y OCULTAMOS EL DE AÑADIR, LUEGO MOSTRAMOS EL MODAL */
             $("button#editModal").css("display","block")
             $("button#addModal").css("display","none")
             $(".modal-title").html("Editar Empleado")
 
             $('#modalEmployee').modal('show')
         }
-        //Si el ID del boton es delete
+        //SI EL ID ES DELETE
         else if($(this).attr('id')=='delete'){
             $('#cuerpo_mensaje').html("<span>Nombre: "+ data.nombre + " " + data.apellidos + "</span>"+
                                       "<input type='hidden' class='form-control' name='idEmployeeD' id='idEmployeeD' value='"+ data.idEmployee +"'>")
             $('#modal_confirm_borrar').modal('show')
         }
-        //Si el ID del boton es añadir
+        //SI EL ID ES ADDEMPLOYE
         else if($(this).attr('id')=='addEmploye'){
             $("button#editModal").css("display","none")
             $("button#addModal").css("display","block")
@@ -86,6 +88,7 @@ $(document).ready(function() {
     
 })
 
+/**PETICION PARA MOSTRAR TODOS LOS EMPLEADOS */
 function get_employee(){
     $.ajax({
         url:"php/empleados_f.php",
@@ -95,7 +98,7 @@ function get_employee(){
             "op":"getEmployee"
         },
         success:function(response){
-            // console.log(response.datosCliente)
+            /*GENERAMOS LA TABLA DINAMICAMENTE CON LOS DATOS DEVUELTOS DE LA CONSULTA */
             $("#table_employee tbody").empty();
                 for (let index = 0; index < response.datosEmployee.length; index++){
                     $("#table_employee tbody").append(
@@ -154,6 +157,8 @@ function get_employee(){
     });
 
 }
+/**RECOGEMOS LOS DATOS DEL MODAL EN UN OBJETO DATOS Y LOS ENVIAMOS MEDIANTE 
+ * UNA PETICION AJAX AL SERVIDOR PARA INSERTARLOS */
 function insert_employee(){
     var datos = {
         "op": "insertEmployee",
@@ -169,8 +174,6 @@ function insert_employee(){
         "numero":$("#numero").val(),
         "poblacion":$("#poblacion").val(),   
     }
-    
-    // console.log(datos)
     $.ajax({
         url:"php/empleados_f.php",
         type:"POST",
@@ -184,9 +187,12 @@ function insert_employee(){
             console.log("Error en la peticion AJAX: " + errorThrown + ", " + textStatus);
         }
     }).done(function(){
-        // location.href ="empleados.php";
+        get_employee()
     });
 }
+
+/**RECOGEMOS LOS DATOS DEL MODAL EN UN OBJETO DATOS Y LOS ENVIAMOS MEDIANTE 
+ * UNA PETICION AJAX AL SERVIDOR PARA EDITARLO */
 function edit_employee(){
     var datos = {
         "op": "editEmployee",
@@ -217,13 +223,13 @@ function edit_employee(){
             console.log("Error en la peticion AJAX: " + errorThrown + ", " + textStatus);
         }
     }).done(function(){
-        location.href ="empleados.php";
+        get_employee()
     });
 
 }
 
-//Funcion en la que recogemos el campo de id del model de borrar,
-//Realizamos una peticion AJAX en la que le pasamos el id y la operacion a realizar
+/*FUNCION EN LA QUE RECOGEMOS EL CAMPO DE ID DEL MODEL DE BORRAR, LUEGO REALIZAMOS 
+REALZIAMOS UNA PETICION AJAX EN LA QUE LE PASAMOS EL ID Y LA OPERACION*/
 function delete_employee(){
     var datos = {
         "op": "deleteEmployee",
@@ -242,6 +248,6 @@ function delete_employee(){
             console.log("Error en la peticion AJAX: " + errorThrown + ", " + textStatus);
         }
     }).done(function(){
-        location.href ="empleados.php";
+        get_employee()
     });
 }

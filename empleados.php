@@ -1,9 +1,7 @@
+<?php session_start();?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <!-- https://www.oxygenna.com/freebies
-    https://www.oxygenna.com/freebies
-    https://material.io/design/color/the-color-system.html#tools-for-picking-colors -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -14,13 +12,11 @@
     <link rel="stylesheet" type="text/css" href="css/lib/datatables.min.css">
     <link rel="stylesheet" type="text/css" href="css/lib/tempusdominus-bootstrap-4.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/styles.css">
-
     <script src="js/lib/jquery-3.3.1.js"></script>
-    
     <title>Empleados</title>
 </head>
 <body>
-    <?php include('php/verifiLogin.php');?> 
+    <?php include('php/verifiLogin.php');?>
 <div class="container-fluid contenedor">
     <div class="cuerpo">
     <button type="button" class="btn btn-primary" id="addEmploye">Añadir Nuevo Empleado</button>
@@ -50,7 +46,7 @@
     </div>
 </div>
 
-<!-- Modal que cargamos para editar los registros -->
+<!-- MODAL QUE CARGAMOS PARA EDITAR LOS REGISTROS -->
 <div class="modal fade" id="modalEmployee" tabindex="-1" role="dialog" aria-labelledby="modalEmployeeLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -179,7 +175,7 @@
   </div>
 </div>
 
-<!-- Modal que cargamos para la confirmacion del borrado -->
+<!-- MODAL QUE CARGAMOS PARA LA CONFIRMACION DEL BORRADO -->
 <div class="modal fade" id="modal_confirm_borrar" tabindex="-1" role="dialog" aria-labelledby="modal_confirm_borrar" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -203,13 +199,12 @@
       </div>
     </div>
 </div>
-
-
-<script type="text/javascript" src="js/lib/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/lib/datatables.min.js"></script>
-<script type="text/javascript" src="js/lib/moment.min.js"></script>
-<script type="text/javascript" src="js/lib/moment_locale_es.js"></script>
-<script type="text/javascript" src="js/lib/tempusdominus-bootstrap-4.min.js"></script>  
-<script type="text/javascript" src='js/empleados.js'></script>
+    <?php include('html/footer.php');?>
+    <script type="text/javascript" src="js/lib/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/lib/datatables.min.js"></script>
+    <script type="text/javascript" src="js/lib/moment.min.js"></script>
+    <script type="text/javascript" src="js/lib/moment_locale_es.js"></script>
+    <script type="text/javascript" src="js/lib/tempusdominus-bootstrap-4.min.js"></script>  
+    <script type="text/javascript" src='js/empleados.js'></script>
 </body>
 </html>

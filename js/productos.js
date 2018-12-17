@@ -13,7 +13,6 @@ $(document).ready(function() {
             'descripcion':fila.find('td:nth-child(5) > span').text(),
             'precio':fila.find('td:nth-child(6) > span').text(),
         }
-        // console.log(data)
 
         //SI EL ID DEL BOTON ES "EDIT"
         if($(this).attr('id')=='edit'){
@@ -52,6 +51,7 @@ $(document).ready(function() {
     
 })
 
+/*FUNCION EN LA QUE HACEMOS UNA PETICION AJAX AL SERVIDOR PARA QUE NOS DEVUELVA TODOS LOS PRODUCTOS */
 function get_product(){
     $.ajax({
         url:"php/productos_f.php",
@@ -65,6 +65,7 @@ function get_product(){
                 tabla.destroy();
                 $('#modalProductos').modal('hide')
             }
+            /*GENERAMOS LA TABLA DINAMICAMENTE CON LOS DATOS DEVUELTOS DE LA CONSULTA */
             $("#table_productos tbody").empty();
                 for (let index = 0; index < response.datosProductos.length; index++){
                     $("#table_productos tbody").append(
@@ -118,6 +119,8 @@ function get_product(){
     });
 
 }
+
+/**FUNCION PARA INSERTAR UN NUEVO PRODUCTO, MEDIANTE LOS DATOS QUE TENEMOS EN EL MODAL */
 function insert_product(){
     var datos = {
         "op": "insertProducto",
@@ -127,7 +130,7 @@ function insert_product(){
         "descripcion":$("#descripcion").val(),
         "precio":$("#precio").val()
     }
-    console.log(datos)
+    /** PETICION AJAX PARA INSERTAR LOS DATOS */
     $.ajax({
         url:"php/productos_f.php",
         type:"POST",
@@ -144,6 +147,8 @@ function insert_product(){
         location.href ="productos.php";
     });
 }
+
+/**FUNCION PARA EDITAR UN PRODUCTO, MEDIANTE LOS DATOS QUE TENEMOS EN EL MODAL */
 function edit_product(){
     var datos = {
         "op": "editProducto",
@@ -154,6 +159,8 @@ function edit_product(){
         "descripcion":$("#descripcion").val(),
         "precio":$("#precio").val()
     }
+
+    /** PETICION AJAX PARA HACER UN UPDATE DE LOS DATOS */
     $.ajax({
         url:"php/productos_f.php",
         type:"POST",
@@ -169,7 +176,6 @@ function edit_product(){
     }).done(function(){
         get_product()
     });
-
 }
 
 /*FUNCION EN LA QUE RECOGEMOS EL CAMPO DE ID DEL MODEL DE BORRAR, REALIZAMOS UNA PETICION AJAX 
@@ -179,6 +185,7 @@ function delete_product(){
         "op": "deleteProducto",
         "idProducto":$("#idProductoD").val()
     }
+    /** PETICION AJAX PARA HACER UN DELTE DEL PRODUCTO */
     $.ajax({
         url:"php/productos_f.php",
         type:"POST",

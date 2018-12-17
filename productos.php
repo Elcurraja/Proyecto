@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -14,7 +15,7 @@
     <title>Productos</title>
 </head>
 <body>
-    <?php include('php/verifiLogin.php');?> 
+    <?php include('php/verifiLogin.php');?>
 <div class="container-fluid contenedor">
     <div class="cuerpo">
     <button type="button" class="btn btn-primary" id="addProduct">Añadir Nuevo Producto</button>
@@ -127,7 +128,7 @@
       </div>
     </div>
 </div>
-
+<?php include('html/footer.php');?>
 <script src="js/lib/bootstrap.min.js"></script>
 <script src="js/lib/datatables.min.js"></script>  
 <script src='js/productos.js'></script>

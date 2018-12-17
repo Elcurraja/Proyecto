@@ -3,6 +3,9 @@ include("mysqlConexion.php");
 
 if(isset($_POST['op'])){
     switch($_POST['op']){
+        case 'getCliente':
+            getClient();
+            break;
         case 'getClientes':
             getClients();
             break;
@@ -17,6 +20,32 @@ if(isset($_POST['op'])){
             break;
     }
 }
+function getClient(){
+    $conn=mysql_proyecto();
+    session_start();
+    $user = $_SESSION['user'];
+    $response = array();
+    if($user!="admin"){
+        $query= "SELECT id,denominacionSocial from clientes WHERE user='$user'";
+        $resultQuery =$conn->query($query);
+        if (!$resultQuery) {
+            $response['error'] = 1;
+            $response['mensaje'] = "Error en la consulta: " + $conn->error;
+        } else {
+            $response['error'] = 0;
+            $response['datosCliente'] = array();
+            while ($fila = $resultQuery->fetch_assoc()){
+                $datos = array(
+                    'id' => $fila['id'],
+                    'denominacion' => $fila['denominacionSocial'],
+                );
+                array_push($response['datosCliente'], $datos);
+            }
+        }
+    }   
+    echo json_encode($response);
+    $conn->close();
+}
 function getClients(){
 
     $conn=mysql_proyecto();
@@ -26,7 +55,7 @@ function getClients(){
     $resultQuery =$conn->query($query);
     if (!$resultQuery) {
         $response['error'] = 1;
-        $response['mensaje'] = "Error en la consulta: " + $conexion->error;
+        $response['mensaje'] = "Error en la consulta: " + $conn->error;
     } else {
         $response['error'] = 0;
         $response['datosCliente'] = array();

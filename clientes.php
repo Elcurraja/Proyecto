@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -39,7 +40,7 @@
     </div>
 </div>
 
-<!-- Modal que cargamos para editar los registros -->
+<!-- MODAL QUE CARGAMOS PARA EDITAR LOS REGISTROS-->
 <div class="modal fade" id="modalClient" tabindex="-1" role="dialog" aria-labelledby="modalClientLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -112,7 +113,7 @@
   </div>
 </div>
 
-<!-- Modal que cargamos para la confirmacion del borrado -->
+<!-- MODAL QUE CARGAMOS PARA LA CONFIRMACION DEL BORRADO -->
 <div class="modal fade" id="modal_confirm_borrar" tabindex="-1" role="dialog" aria-labelledby="modal_confirm_borrar" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -136,9 +137,9 @@
       </div>
     </div>
 </div>
-
-<script src="js/lib/bootstrap.min.js"></script>
-<script src="js/lib/datatables.min.js"></script>  
-<script src='js/clientes.js'></script>
+    <?php include('html/footer.php');?>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/lib/datatables.min.js"></script>  
+    <script src='js/clientes.js'></script>
 </body>
 </html>

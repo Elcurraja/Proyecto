@@ -32,7 +32,7 @@
                     <div id="divlow3"></div>
                 </li>
                 <li class="menu_li nav-item">
-                    <a class="nav-link" href="#">Historico Almacen</a>
+                    <a class="nav-link" href="./historico_almacen.php">Historico Almacen</a>
                     <div id="divlow4"></div>
                 </li>
                 <li class="menu_li nav-item dropdown ">
@@ -42,18 +42,8 @@
                     <div id="divlow5"></div>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="./empleados.php">Empleados</a>
-                        <a class="dropdown-item" href="./proveedores.php">Proveedores</a>
                         <a class="dropdown-item" href="./clientes.php">Clientes</a>
-                    </div>
-                </li>
-                <li class="menu_li nav-item dropdown ">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Herramientas
-                    </a>
-                    <div id="divlow6"></div>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="./empleados.php">Estadisticas Venta</a>
-                        <a class="dropdown-item" href="./proveedores.php">Seguimiento</a>
+                        <a class="nav-link" href="register.php">Registrar usuario</a>
                     </div>
                 </li>
                 <li class="menu_li nav-item">

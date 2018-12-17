@@ -1,6 +1,7 @@
 <?php
 include("mysqlConexion.php");
 
+/**RECIBIMOS MEDIANTE $_POST LOS PARAMETROS PARA REALIZAR UNA U OTRA FUNCION */
 if(isset($_POST['op'])){
     switch($_POST['op']){
         case 'getProductos':
@@ -17,12 +18,11 @@ if(isset($_POST['op'])){
             break;
     }
 }
+/*CONSULTA PARA SELECCIONAR TODOS LOS PRODUCTOS, SE DEVUELVE MEDIANTE UN OBJETO JSON */
 function get_Productos(){
-
     $conn=mysql_proyecto();
     $query= "SELECT * from productos";
     $response = array();
-
     $resultQuery =$conn->query($query);
     if (!$resultQuery) {
         $response['error'] = 1;
@@ -42,9 +42,15 @@ function get_Productos(){
             array_push($response['datosProductos'], $datos);
         }
     }
+    /*COGEMOS MEDIANTE $_SESSION['user'] EL USUARIO QUE ESTA LOGEADO ACTUALMENTE
+    PARA LUEGO AL MOSTRARLO EN LOS PEDIDOS DETERMINAR QUE USUARIO LO HA REALIZADO */
+    session_start();
+    $response['cliente'] = $_SESSION['user'];
     echo json_encode($response);
     $conn->close();
 }
+
+/*CONSULTA PARA INSERTAR EL PRODUCTO, SE DEVUELVE UN OBJETO JSON CON EL ERROR SI HUBIESE Y EL MENSAJE */
 function insert_Productos(){
     $conn=mysql_proyecto();
     $conn->begin_transaction();
@@ -70,10 +76,12 @@ function insert_Productos(){
         $response['errorInsert'] = 1;
         $response['mensajeInsert'] = $e->getMessage();
     }
-
     header('Content-type: application/json; charset=utf-8');
     echo json_encode($response);
 }
+
+
+/*CONSULTA PARA EDITAR EL PRODUCTO, SE DEVUELVE UN OBJETO JSON CON EL ERROR SI HUBIESE Y EL MENSAJE */
 function edit_Productos(){
     $conn=mysql_proyecto();
     $conn->begin_transaction();
@@ -83,7 +91,6 @@ function edit_Productos(){
     $disponible = $_POST['disponible'];
     $descripcion = $_POST['descripcion'];
     $precio = $_POST['precio'];
-
     try {
         $query = "  UPDATE productos 
                     SET nombre='$nombre',tipo='$tipo',disponible='$disponible',descripcion='$descripcion',precio='$precio' WHERE id=$idProductos";
@@ -94,7 +101,6 @@ function edit_Productos(){
         else{
             $response['errorUpdate'] = 0;
         }
-        
         $conn->commit();
     } 
     catch (Exception $e) {
@@ -102,10 +108,11 @@ function edit_Productos(){
         $response['errorUpdate'] = 1;
         $response['mensajeUpdate'] = $e->getMessage();
     }
-
     header('Content-type: application/json; charset=utf-8');
     echo json_encode($response);
 }
+
+/*CONSULTA PARA BORRAR EL PRODUCTO, SE DEVUELVE UN OBJETO JSON CON EL ERROR SI HUBIESE Y EL MENSAJE */
 function delete_Productos(){
     $conn=mysql_proyecto();
     $conn->begin_transaction();
@@ -119,7 +126,6 @@ function delete_Productos(){
         else{
             $response['errorDelete'] = 0;
         }
-        
         $conn->commit();
     } 
     catch (Exception $e) {
@@ -127,7 +133,6 @@ function delete_Productos(){
         $response['errorDelete'] = 1;
         $response['mensajeDelete'] = $e->getMessage();
     }
-
     header('Content-type: application/json; charset=utf-8');
     echo json_encode($response);
 }

@@ -1,6 +1,7 @@
 <?php
 include("mysqlConexion.php");
 
+/**RECIBIMOS MEDIANTE $_POST LOS PARAMETROS PARA REALIZAR UNA U OTRA FUNCION */
 if(isset($_POST['op'])){
     switch($_POST['op']){
         case 'getEmployee':
@@ -17,12 +18,12 @@ if(isset($_POST['op'])){
             break;
     }
 }
-function get_Employee(){
 
+/*CONSULTA PARA SELECCIONAR TODOS LOS PRODUCTOS, SE DEVUELVE MEDIANTE UN OBJETO JSON */
+function get_Employee(){
     $conn=mysql_proyecto();
     $query= "SELECT * from empleados";
     $response = array();
-
     $resultQuery =$conn->query($query);
     if (!$resultQuery) {
         $response['error'] = 1;
@@ -51,9 +52,11 @@ function get_Employee(){
     echo json_encode($response);
     $conn->close();
 }
+/**INSERTAMOS EL EMPLEADO  RECIBIENDO TODOS LOS DATOS DEL OBJETO JSON  */
 function insert_Employee(){
     $conn=mysql_proyecto();
     $conn->begin_transaction();
+    /**RECOGEMOS TODOS LOS DATOS */
     $nombre = $_POST['nombre'];
     $apellidos = $_POST['apellidos'];
     $dni = $_POST['dni'];
@@ -68,10 +71,11 @@ function insert_Employee(){
     $direccion = $_POST['direccion'];
     $numero = $_POST['numero'];
     $poblacion = $_POST['poblacion'];
+
+    /**REALIZAMOS LA CONSULTA */
     try {
         $query = "  INSERT INTO empleados (nombre,apellidos,dni,fecha_nacimiento,fecha_contratacion,fecha_fin_contrato,puesto,telefono,direccion,numero,poblacion)
                     VALUES('$nombre','$apellidos','$dni','$fecha_nacimiento','$fecha_contratacion','$fecha_fin_contrato','$puesto','$telefono','$direccion',$numero,'$poblacion')";
-                    echo $query;
         $resultQuery = $conn->query($query);
         if (!$resultQuery) {
             throw new Exception($conn->error);
@@ -90,9 +94,12 @@ function insert_Employee(){
     header('Content-type: application/json; charset=utf-8');
     echo json_encode($response);
 }
+
+/**FUNCION PARA EDITAR EL EMPLEADO, RECIBIENDO LOS DATOS DEL JSON RECOGIDOS POR EL MODAL */
 function edit_Employee(){
     $conn=mysql_proyecto();
     $conn->begin_transaction();
+    /**RECOGEMOS LOS DATOS */
     $idEmployee = $_POST['idEmployee'];
     $nombre = $_POST['nombre'];
     $apellidos = $_POST['apellidos'];
@@ -108,6 +115,7 @@ function edit_Employee(){
     $direccion = $_POST['direccion'];
     $numero = $_POST['numero'];
     $poblacion = $_POST['poblacion'];
+    /**REALIZAMOS EL UPDATE */
     try {
         $query = "  UPDATE empleados 
                     SET nombre='$nombre',apellidos='$apellidos',dni='$dni',fecha_nacimiento='$fecha_nacimiento',fecha_contratacion='$fecha_contratacion',
@@ -133,6 +141,8 @@ function edit_Employee(){
     header('Content-type: application/json; charset=utf-8');
     echo json_encode($response);
 }
+
+/**FUNCION PARA BORRAR EL EMPLEADO SELECCIONADO */
 function delete_Employee(){
     $conn=mysql_proyecto();
     $conn->begin_transaction();
@@ -154,7 +164,6 @@ function delete_Employee(){
         $response['errorDelete'] = 1;
         $response['mensajeDelete'] = $e->getMessage();
     }
-
     header('Content-type: application/json; charset=utf-8');
     echo json_encode($response);
 }
